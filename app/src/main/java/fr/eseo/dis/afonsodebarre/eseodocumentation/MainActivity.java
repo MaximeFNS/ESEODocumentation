@@ -12,12 +12,14 @@ public class MainActivity extends AppCompatActivity {
 //Commentaire test
 
     private EditText login;
+    private EditText password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final Button connect = (Button)findViewById(R.id.bn_connect);
         login = (EditText)findViewById(R.id.user_login);
+        password = (EditText)findViewById(R.id.user_password);
     }
 
     @Override

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">ESEODocumentation</string>
     <string name="connection">To connect</string>
-    <string name="ask_login">Login :</string>
+    <string name="ask_login">Welcome to ESEODocumentation :</string>
+    <string name="hint_login">Login</string>
+    <string name="hint_password">Password</string>
 </resources>
