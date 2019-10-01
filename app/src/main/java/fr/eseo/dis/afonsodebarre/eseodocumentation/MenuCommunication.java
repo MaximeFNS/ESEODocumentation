@@ -10,9 +10,12 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.LOGIN;
+import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.PASSWORD;
+
 public class MenuCommunication extends AppCompatActivity {
 
-    private String login;
+    private static final String TAG = "TAG";
+    private String login, password;
 
     public static Intent getStartIntent(final Context ctx) {
         return new Intent(ctx, MenuCommunication.class);
@@ -22,6 +25,8 @@ public class MenuCommunication extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_comm_main);
         login = getIntent().getStringExtra(LOGIN);
+        password = getIntent().getStringExtra(PASSWORD);
+        Log.d(TAG, "log: "+ login +password);
 
     }
 

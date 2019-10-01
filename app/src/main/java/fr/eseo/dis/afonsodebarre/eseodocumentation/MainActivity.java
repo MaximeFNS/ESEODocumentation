@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     public static final String LOGIN = "LOGIN";
+    public static final String PASSWORD = "PASSWORD";
     private static final int CONNECTION = 0;
 //Commentaire test
 
@@ -73,11 +74,12 @@ public class MainActivity extends AppCompatActivity {
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(MainActivity.this, MenuCommunication.class);
-                intent.putExtra(LOGIN,login.getText().toString());
-                startActivityForResult(intent,CONNECTION);*/
                 Intent intent = new Intent(MainActivity.this, MenuCommunication.class);
-                startActivity(intent);
+                intent.putExtra(LOGIN,login.getText().toString());
+                intent.putExtra(PASSWORD,password.getText().toString());
+                startActivityForResult(intent,CONNECTION);
+                //Intent intent = new Intent(MainActivity.this, MenuCommunication.class);
+                //startActivity(intent);
             }
         });
 
