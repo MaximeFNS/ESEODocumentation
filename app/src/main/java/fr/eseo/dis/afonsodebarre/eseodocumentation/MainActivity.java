@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String LOGIN = "LOGIN";
     public static final String PASSWORD = "PASSWORD";
     private static final int CONNECTION = 0;
-//Commentaire test
+    private static final String TAG = "TAG";
 
     private EditText login;
     private EditText password;
@@ -58,6 +58,23 @@ public class MainActivity extends AppCompatActivity {
                         public void afterTextChanged(Editable editable) {
                             if(password.getText()!=null && !password.getText().toString().equals("")){
                                 connect.setEnabled(true);
+                                if (login.getText().toString().equals("jpo") && password.getText().toString().equals("jpo")){
+
+                                    connect.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Intent intent = new Intent(MainActivity.this, MenuCommunication.class);
+                                            intent.putExtra(LOGIN,login.getText().toString());
+                                            intent.putExtra(PASSWORD,password.getText().toString());
+                                            startActivityForResult(intent,CONNECTION);
+                                            //Intent intent = new Intent(MainActivity.this, MenuCommunication.class);
+                                            //startActivity(intent);
+
+                                        }
+                                    });
+
+                                }
+
                             }
                             else{
                                 connect.setEnabled(false);
@@ -71,18 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        connect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MenuCommunication.class);
-                intent.putExtra(LOGIN,login.getText().toString());
-                intent.putExtra(PASSWORD,password.getText().toString());
-                startActivityForResult(intent,CONNECTION);
-                //Intent intent = new Intent(MainActivity.this, MenuCommunication.class);
-                //startActivity(intent);
-            }
-        });
-
 
     }
 
