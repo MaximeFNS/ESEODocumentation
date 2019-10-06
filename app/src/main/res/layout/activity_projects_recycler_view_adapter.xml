@@ -4,15 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TousLesProjetsActivity">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/projectslist"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/Aqua"
-        >
-
-    </androidx.recyclerview.widget.RecyclerView>
-
+    tools:context=".adapters.ProjectsRecyclerViewAdapter">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
