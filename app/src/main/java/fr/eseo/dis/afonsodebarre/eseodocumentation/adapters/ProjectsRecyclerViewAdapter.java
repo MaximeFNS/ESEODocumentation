@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,6 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
 
     private List<Integer> projectinfos;
 
-    //TODO: This field will be deleted
-    private float radius;
 
     public ProjectsRecyclerViewAdapter(TousLesProjetsActivity projetsActivity) {
         this.projetsActivity = projetsActivity;
@@ -38,16 +37,29 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
     @NonNull
     @Override
     public ProjectsRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View filmView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_projects_item,parent,false);
-        //TODO: The following lines will be deleted
-        ((CardView)filmView).setRadius(radius);
-        radius += 10;
-        //TODO: End of code to be deleted
-        return new ProjectsRecyclerViewHolder(filmView);
+
+        View projectView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_projects_item,parent,false);
+        return new ProjectsRecyclerViewHolder(projectView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProjectsRecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ProjectsRecyclerViewHolder holder, int position) {
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if(holder.filmSynopsis.getVisibility()==View.VISIBLE){
+
+                    holder.filmSynopsis.setVisibility(View.GONE);
+                    holder.filmSynopsisLabel.setVisibility(View.GONE);
+                }
+                else{
+
+                    holder.filmSynopsis.setVisibility(View.VISIBLE);
+                    holder.filmSynopsisLabel.setVisibility(View.VISIBLE);
+                }
+                return true;
+            }
+        });
 
     }
 
@@ -56,11 +68,24 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
         return projectinfos.size();
     }
 
+
     class ProjectsRecyclerViewHolder extends RecyclerView.ViewHolder {
+
+        private final TextView filmTitre;
+        private final TextView filmGenre;
+        private final TextView filmAnnee;
+        private final TextView filmSynopsis;
+        private final TextView filmSynopsisLabel;
 
         public ProjectsRecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
+            filmTitre = itemView.findViewById(R.id.filmography_titre);
+            filmGenre = itemView.findViewById(R.id.filmography_genre);
+            filmAnnee = itemView.findViewById(R.id.filmography_annee);
+            filmSynopsis = itemView.findViewById(R.id.filmography_resume);
+            filmSynopsisLabel = itemView.findViewById(R.id.filmography_synopsis);
         }
     }
+
 
 }
