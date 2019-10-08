@@ -22,6 +22,8 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
     private final TousLesProjetsActivity projetsActivity;
 
     private List<Integer> projectinfos;
+    private List<Integer> expandedPositions = new ArrayList<>();
+
 
 
     public ProjectsRecyclerViewAdapter(TousLesProjetsActivity projetsActivity) {
@@ -43,24 +45,31 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ProjectsRecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ProjectsRecyclerViewHolder holder, final int position) {
+        if(expandedPositions.contains(position)){
+            holder.projectResume.setVisibility(View.VISIBLE);
+            holder.projectDescriptionLabel.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.projectResume.setVisibility(View.GONE);
+            holder.projectDescriptionLabel.setVisibility(View.GONE);
+        }
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                if(holder.filmSynopsis.getVisibility()==View.VISIBLE){
-
-                    holder.filmSynopsis.setVisibility(View.GONE);
-                    holder.filmSynopsisLabel.setVisibility(View.GONE);
+                if(holder.projectResume.getVisibility()==View.VISIBLE){
+                    expandedPositions.remove(new Integer(position));
+                    holder.projectResume.setVisibility(View.GONE);
+                    holder.projectDescriptionLabel.setVisibility(View.GONE);
                 }
                 else{
-
-                    holder.filmSynopsis.setVisibility(View.VISIBLE);
-                    holder.filmSynopsisLabel.setVisibility(View.VISIBLE);
+                    expandedPositions.add(position);
+                    holder.projectResume.setVisibility(View.VISIBLE);
+                    holder.projectDescriptionLabel.setVisibility(View.VISIBLE);
                 }
                 return true;
             }
         });
-
     }
 
     @Override
@@ -71,19 +80,19 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
 
     class ProjectsRecyclerViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView filmTitre;
-        private final TextView filmGenre;
-        private final TextView filmAnnee;
-        private final TextView filmSynopsis;
-        private final TextView filmSynopsisLabel;
+        private final TextView projectTitle;
+        private final TextView projectID;
+        private final TextView projectConfidentiality;
+        private final TextView projectResume;
+        private final TextView projectDescriptionLabel;
 
         public ProjectsRecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
-            filmTitre = itemView.findViewById(R.id.filmography_titre);
-            filmGenre = itemView.findViewById(R.id.filmography_genre);
-            filmAnnee = itemView.findViewById(R.id.filmography_annee);
-            filmSynopsis = itemView.findViewById(R.id.filmography_resume);
-            filmSynopsisLabel = itemView.findViewById(R.id.filmography_synopsis);
+            projectTitle = itemView.findViewById(R.id.project_titre);
+            projectID = itemView.findViewById(R.id.project_id);
+            projectConfidentiality = itemView.findViewById(R.id.project_confidentiality);
+            projectResume = itemView.findViewById(R.id.project_resume);
+            projectDescriptionLabel = itemView.findViewById(R.id.project_description);
         }
     }
 

@@ -1,39 +1,24 @@
 package fr.eseo.dis.afonsodebarre.eseodocumentation;
 
+import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+public class MenuJury extends AppCompatActivity {
 
-import androidx.appcompat.app.AppCompatActivity;
-import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.LOGIN;
-import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.PASSWORD;
-
-public class MenuCommunication extends AppCompatActivity {
-
-    private static final String TAG = "TAG";
     private static final int CONNECTION = 0;
-    private String login, password;
-    ImageButton projectButton;
+    ImageButton reviewButton;
     ImageButton juryButton;
-    private Context context = this;
-    JsonTask jsontask = new JsonTask(context);
-
-    public static Intent getStartIntent(final Context ctx) {
-        return new Intent(ctx, MenuCommunication.class);
-    }
+    ImageButton projectButton;
+    ImageButton gradeButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_comm_main);
-        login = getIntent().getStringExtra(LOGIN);
-        password = getIntent().getStringExtra(PASSWORD);
+        setContentView(R.layout.activity_menu_jury);
 
         projectButton = findViewById(R.id.tousProjetsImage);
         projectButton.setOnClickListener(onProjetsButtonClicked);
@@ -41,14 +26,17 @@ public class MenuCommunication extends AppCompatActivity {
         juryButton = findViewById(R.id.pseudosjurysImage);
         juryButton.setOnClickListener(onPseudosJurysButtonClicked);
 
-        String s = jsontask.doInBackground("https://192.168.4.240/pfe/webservice.php?q=LOGON&user=alberpat&pass=w872o32HkYAO");
+        gradeButton = findViewById(R.id.gradeImage);
+        gradeButton.setOnClickListener(onGradeButtonClicked);
 
+        reviewButton = findViewById(R.id.reviewImage);
+        reviewButton.setOnClickListener(onReviewButtonClicked);
     }
 
     private final View.OnClickListener onProjetsButtonClicked = new View.OnClickListener() {
         @Override
         public void onClick(final View view) {
-            Intent intent = new Intent(MenuCommunication.this, TousLesProjetsActivity.class);
+            Intent intent = new Intent(MenuJury.this, TousLesProjetsActivity.class);
             startActivityForResult(intent,CONNECTION);
 
         }
@@ -57,7 +45,25 @@ public class MenuCommunication extends AppCompatActivity {
     private final View.OnClickListener onPseudosJurysButtonClicked = new View.OnClickListener() {
         @Override
         public void onClick(final View view) {
-            Intent intent = new Intent(MenuCommunication.this, PseudosJurysActivity.class);
+            Intent intent = new Intent(MenuJury.this, MyJurysActivity.class);
+            startActivityForResult(intent,CONNECTION);
+
+        }
+    };
+
+    private final View.OnClickListener onGradeButtonClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(final View view) {
+            Intent intent = new Intent(MenuJury.this, MyGradesActivity.class);
+            startActivityForResult(intent,CONNECTION);
+
+        }
+    };
+
+    private final View.OnClickListener onReviewButtonClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(final View view) {
+            Intent intent = new Intent(MenuJury.this, MyReviewsActivity.class);
             startActivityForResult(intent,CONNECTION);
 
         }

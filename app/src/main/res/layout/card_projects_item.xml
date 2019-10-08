@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/filmography_titre"
+            android:id="@+id/project_titre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -20,8 +20,8 @@
             android:layout_marginEnd="16dp"
             android:maxLines="2"
             android:minLines="2"
-            android:text="Monty Python and the Holy Grail"
-            android:textAlignment="textStart"
+            android:text="Project Test"
+            android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
             android:visibility="visible"
@@ -30,48 +30,48 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/filmography_genre"
+            android:id="@+id/project_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="Comédie"
+            android:text="4"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/filmography_synopsis"
-            app:layout_constraintStart_toStartOf="@+id/filmography_titre"
-            app:layout_constraintTop_toBottomOf="@+id/filmography_titre" />
+            app:layout_constraintBottom_toTopOf="@+id/project_description"
+            app:layout_constraintStart_toStartOf="@+id/project_titre"
+            app:layout_constraintTop_toBottomOf="@+id/project_titre" />
 
         <TextView
-            android:id="@+id/filmography_annee"
+            android:id="@+id/project_confidentiality"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:text="1975"
+            android:text="0"
             android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="@+id/filmography_titre"
-            app:layout_constraintTop_toBottomOf="@+id/filmography_titre" />
+            app:layout_constraintEnd_toEndOf="@+id/project_titre"
+            app:layout_constraintTop_toBottomOf="@+id/project_titre" />
 
         <TextView
-            android:id="@+id/filmography_synopsis"
+            android:id="@+id/project_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
-            android:text="Synopsis"
+            android:text="Description"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/filmography_resume"
+            app:layout_constraintBottom_toTopOf="@+id/project_resume"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/filmography_resume"
+            android:id="@+id/project_resume"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="16dp"
-            android:text="Le roi Arthur et les Chevaliers de la Table Ronde se lancent à la conquête du Graal, chevauchant de fantômatiques montures dans un bruitage de noix de coco cognées. La petite troupe va devoir passer mille épreuves, dont un chevalier à trois têtes, des jouvencelles en chaleur, voire même un terrible lapin tueur. "
+            android:text="This is the description of the project"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

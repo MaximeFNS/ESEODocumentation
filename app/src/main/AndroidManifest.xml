@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".adapters.ProjectsRecyclerViewAdapter"></activity>
+        <activity android:name=".MyReviewsActivity"></activity>
+        <activity android:name=".MyGradesActivity" />
+        <activity android:name=".MyJurysActivity" />
+        <activity android:name=".MenuJury" />
+        <activity android:name=".adapters.ProjectsRecyclerViewAdapter" />
         <activity android:name=".PseudosJurysActivity" />
         <activity android:name=".TousLesProjetsActivity" />
         <activity android:name=".MainActivity">
