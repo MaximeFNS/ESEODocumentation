@@ -1,10 +1,8 @@
 package fr.eseo.dis.afonsodebarre.eseodocumentation;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -24,7 +22,6 @@ public class MenuCommunication extends AppCompatActivity {
     ImageButton projectButton;
     ImageButton juryButton;
     private Context context = this;
-    JsonTask jsontask = new JsonTask(context);
 
     public static Intent getStartIntent(final Context ctx) {
         return new Intent(ctx, MenuCommunication.class);
@@ -42,7 +39,7 @@ public class MenuCommunication extends AppCompatActivity {
         juryButton = findViewById(R.id.pseudosjurysImage);
         juryButton.setOnClickListener(onPseudosJurysButtonClicked);
 
-        @SuppressLint("WrongThread") String s = jsontask.doInBackground("https://192.168.4.240/pfe/webservice.php?q=LOGON&user=alberpat&pass=w872o32HkYAO");
+        new WebServiceConnectivity(this).execute("https://192.168.4.240/pfe/webservice.php?q=LOGON&user=alberpat&pass=w872o32HkYAO");
 
     }
 
