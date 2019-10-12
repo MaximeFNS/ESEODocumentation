@@ -20,10 +20,10 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity {
     public static final String LOGIN = "LOGIN";
     public static final String PASSWORD = "PASSWORD";
+    public static final String TOKEN = "TOKEN";
     private static final int CONNECTION = 0;
     private static final String TAG = "TAG";
     private Context context = this;
-    private BufferedReader bf;
     private EditText login;
     private EditText password;
     @Override
@@ -69,32 +69,7 @@ public class MainActivity extends AppCompatActivity {
                                 connect.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        WebServiceConnectivity wsc = new WebServiceConnectivity(context);
-                                        wsc.execute("https://192.168.4.240/pfe/webservice.php?q=LOGON&user="+login.getText()+"&pass="+password.getText());
-
-                                        try {
-                                            String resultat = wsc.get();
-                                            JSONObject jObject = new JSONObject(resultat);
-                                            String aJsonString = jObject.getString("result");
-
-                                            if(aJsonString.equals("OK")){
-                                                Intent intent = new Intent(MainActivity.this, MenuJury.class);
-                                                intent.putExtra(LOGIN,login.getText().toString());
-                                                intent.putExtra(PASSWORD,password.getText().toString());
-                                                startActivityForResult(intent,CONNECTION);
-
-                                            }
-
-                                        } catch (ExecutionException e) {
-                                            e.printStackTrace();
-                                        } catch (InterruptedException e) {
-                                            e.printStackTrace();
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        //Intent intent = new Intent(MainActivity.this, MenuCommunication.class);
-                                        //startActivity(intent);
+                                        loginUser();
 
                                     }
                                 });
@@ -145,6 +120,45 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void loginUser() {
+        WebServiceConnectivity wsc = new WebServiceConnectivity(context);
+        wsc.execute("https://192.168.4.240/pfe/webservice.php?q=LOGON&user="+login.getText()+"&pass="+password.getText());
+
+        try {
+            String resultat = wsc.get();
+            JSONObject jObject = new JSONObject(resultat);
+            String resultString = jObject.getString("result");
+            String tokenString = jObject.getString("token");
+            WebServiceConnectivity wsc2 = new WebServiceConnectivity(context);
+            if(resultString.equals("OK")){
+                wsc2.execute("https://192.168.4.240/pfe/webservice.php?q=PORTE&user="+login.getText()+"&token="+tokenString);
+                resultat = wsc2.get();
+                jObject = new JSONObject(resultat);
+                resultString = jObject.getString("result");
+                if(resultString.equals("OK")) {
+                    Intent intent = new Intent(MainActivity.this, MenuCommunication.class);
+                    intent.putExtra(LOGIN, login.getText().toString());
+                    intent.putExtra(PASSWORD, password.getText().toString());
+                    intent.putExtra(TOKEN, tokenString);
+                    startActivityForResult(intent, CONNECTION);
+                }else{
+                    Intent intent = new Intent(MainActivity.this, MenuJury.class);
+                    intent.putExtra(LOGIN, login.getText().toString());
+                    intent.putExtra(PASSWORD, password.getText().toString());
+                    intent.putExtra(TOKEN, tokenString);
+                    startActivityForResult(intent, CONNECTION);
+                }
+            }
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
