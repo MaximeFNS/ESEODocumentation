@@ -39,8 +39,6 @@ public class MenuCommunication extends AppCompatActivity {
         juryButton = findViewById(R.id.pseudosjurysImage);
         juryButton.setOnClickListener(onPseudosJurysButtonClicked);
 
-        new WebServiceConnectivity(this).execute("https://192.168.4.240/pfe/webservice.php?q=LOGON&user=alberpat&pass=w872o32HkYAO");
-
     }
 
     private final View.OnClickListener onProjetsButtonClicked = new View.OnClickListener() {

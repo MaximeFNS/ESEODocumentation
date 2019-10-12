@@ -124,7 +124,7 @@ public class WebServiceConnectivity extends AsyncTask<String, String, String> {
 
     }
 
-    private String recupString(BufferedReader rd) {
+    protected String recupString(BufferedReader rd) {
         StringBuilder sb = new StringBuilder();
         String line;
 
@@ -138,7 +138,7 @@ public class WebServiceConnectivity extends AsyncTask<String, String, String> {
 
         return sb.toString();
     }
-    private String analyzeString(String response){
+    protected String analyzeString(String response){
         JSONObject obj = null;
         try {
             obj = new JSONObject(response);
@@ -159,7 +159,28 @@ public class WebServiceConnectivity extends AsyncTask<String, String, String> {
         Log.d("postexecute","result"+result.toString());
     }
 
+    private String recupToken(BufferedReader reader){
+        String line = "";
 
+        Log.d("taskToken", "recup");
+        try {
+            while (((line = reader.readLine()) != null)) {
+                Log.d("taskToken", line);
+                if (line.contains("token"))
+                    Log.d("taskToken", line.substring(11, line.length()-1));
+                return line.substring(11, line.length()-1);
+
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("taskToken", e.toString());
+        }
+        return "not working dude";
     }
+
+
+
+}
 
 

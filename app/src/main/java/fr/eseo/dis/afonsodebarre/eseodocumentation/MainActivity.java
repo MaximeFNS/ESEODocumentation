@@ -2,6 +2,7 @@ package fr.eseo.dis.afonsodebarre.eseodocumentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,13 +12,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import org.json.JSONObject;
+import org.json.*;
+import java.io.BufferedReader;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
     public static final String LOGIN = "LOGIN";
     public static final String PASSWORD = "PASSWORD";
     private static final int CONNECTION = 0;
     private static final String TAG = "TAG";
-
+    private Context context = this;
+    private BufferedReader bf;
     private EditText login;
     private EditText password;
     @Override
@@ -58,7 +64,42 @@ public class MainActivity extends AppCompatActivity {
                         public void afterTextChanged(Editable editable) {
                             if(password.getText()!=null && !password.getText().toString().equals("")){
                                 connect.setEnabled(true);
-                                if (login.getText().toString().equals("jpo") && password.getText().toString().equals("jpo")){
+
+
+                                connect.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        WebServiceConnectivity wsc = new WebServiceConnectivity(context);
+                                        wsc.execute("https://192.168.4.240/pfe/webservice.php?q=LOGON&user="+login.getText()+"&pass="+password.getText());
+
+                                        try {
+                                            String resultat = wsc.get();
+                                            JSONObject jObject = new JSONObject(resultat);
+                                            String aJsonString = jObject.getString("result");
+
+                                            if(aJsonString.equals("OK")){
+                                                Intent intent = new Intent(MainActivity.this, MenuJury.class);
+                                                intent.putExtra(LOGIN,login.getText().toString());
+                                                intent.putExtra(PASSWORD,password.getText().toString());
+                                                startActivityForResult(intent,CONNECTION);
+
+                                            }
+
+                                        } catch (ExecutionException e) {
+                                            e.printStackTrace();
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        //Intent intent = new Intent(MainActivity.this, MenuCommunication.class);
+                                        //startActivity(intent);
+
+                                    }
+                                });
+
+                                /*if (login.getText().toString().equals("jpo") && password.getText().toString().equals("jpo")){
 
                                     connect.setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -88,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     });
 
-                                }
+                                }*/
 
                             }
                             else{
