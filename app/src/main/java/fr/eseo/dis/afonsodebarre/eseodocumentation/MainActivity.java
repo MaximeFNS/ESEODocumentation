@@ -74,38 +74,6 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                /*if (login.getText().toString().equals("jpo") && password.getText().toString().equals("jpo")){
-
-                                    connect.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            Intent intent = new Intent(MainActivity.this, MenuCommunication.class);
-                                            intent.putExtra(LOGIN,login.getText().toString());
-                                            intent.putExtra(PASSWORD,password.getText().toString());
-                                            startActivityForResult(intent,CONNECTION);
-                                            //Intent intent = new Intent(MainActivity.this, MenuCommunication.class);
-                                            //startActivity(intent);
-
-                                        }
-                                    });
-
-                                } else if (login.getText().toString().equals("jury") && password.getText().toString().equals("jury")){
-
-                                    connect.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            Intent intent = new Intent(MainActivity.this, MenuJury.class);
-                                            intent.putExtra(LOGIN,login.getText().toString());
-                                            intent.putExtra(PASSWORD,password.getText().toString());
-                                            startActivityForResult(intent,CONNECTION);
-                                            //Intent intent = new Intent(MainActivity.this, MenuCommunication.class);
-                                            //startActivity(intent);
-
-                                        }
-                                    });
-
-                                }*/
-
                             }
                             else{
                                 connect.setEnabled(false);
