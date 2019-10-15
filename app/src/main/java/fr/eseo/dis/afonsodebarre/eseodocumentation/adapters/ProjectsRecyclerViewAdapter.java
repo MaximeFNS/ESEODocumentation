@@ -24,7 +24,7 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
 
     private final TousLesProjetsActivity projetsActivity;
 
-    private List<Integer> projectinfos;
+
     private List<Integer> expandedPositions;
 
     private List<String> projects_title;
@@ -41,7 +41,7 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
         projects_confid = new ArrayList<>();
         projects_description = new ArrayList<>();
 
-        Log.d("TAILLE LISTE", "Taille :"+projects_title.size());
+
 
         expandedPositions = new ArrayList<>();
     }
@@ -101,7 +101,7 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
 
     @Override
     public int getItemCount() {
-        return projectinfos.size();
+        return projects_id.size();
     }
 
 
