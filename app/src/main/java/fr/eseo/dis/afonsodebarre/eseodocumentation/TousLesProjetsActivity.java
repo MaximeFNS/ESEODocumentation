@@ -78,12 +78,12 @@ public class TousLesProjetsActivity extends AppCompatActivity {
 
                 for (int i = 0; i < jObject.getJSONArray("projects").length(); i++){
                     JSONArray arrayProjects = jObject.getJSONArray("projects");
-                    JSONObject projetcObject = arrayProjects.getJSONObject(0);
+                    JSONObject projetcObject = arrayProjects.getJSONObject(i);
                     String projectTitleString = projetcObject.getString("title");
                     String projectIdString = projetcObject.getString("projectId");
                     String projectConfidString = projetcObject.getString("confid");
                     String projectDescriptionString = projetcObject.getString("descrip");
-
+                    Log.d("TITRE PROJET", projectTitleString);
                     PROJECTS_TITLE.add(projectTitleString);
                     PROJECTS_ID.add(projectIdString);
                     PROJECTS_CONFID.add(projectConfidString);
