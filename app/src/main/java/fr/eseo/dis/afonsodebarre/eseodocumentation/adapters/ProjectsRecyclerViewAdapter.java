@@ -68,9 +68,9 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
 
     @Override
     public void onBindViewHolder(@NonNull final ProjectsRecyclerViewHolder holder, final int position) {
-        holder.projectID.setText(projects_id.get(position));
+        holder.projectID.setText("id : "+projects_id.get(position));
         holder.projectResume.setText(projects_description.get(position));
-        holder.projectConfidentiality.setText(projects_confid.get(position));
+        holder.projectConfidentiality.setText("confid : "+projects_confid.get(position));
         holder.projectTitle.setText(projects_title.get(position));
 
         if(expandedPositions.contains(position)){

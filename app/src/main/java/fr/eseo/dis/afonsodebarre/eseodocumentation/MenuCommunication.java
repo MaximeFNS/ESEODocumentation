@@ -13,12 +13,13 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.LOGIN;
 import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.PASSWORD;
+import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.TOKEN;
 
 public class MenuCommunication extends AppCompatActivity {
 
     private static final String TAG = "TAG";
     private static final int CONNECTION = 0;
-    private String login, password;
+    private String login, password, token;
     ImageButton projectButton;
     ImageButton juryButton;
     private Context context = this;
@@ -32,6 +33,7 @@ public class MenuCommunication extends AppCompatActivity {
         setContentView(R.layout.menu_comm_main);
         login = getIntent().getStringExtra(LOGIN);
         password = getIntent().getStringExtra(PASSWORD);
+        token = getIntent().getStringExtra(TOKEN);
 
         projectButton = findViewById(R.id.tousProjetsImage);
         projectButton.setOnClickListener(onProjetsButtonClicked);
@@ -45,6 +47,9 @@ public class MenuCommunication extends AppCompatActivity {
         @Override
         public void onClick(final View view) {
             Intent intent = new Intent(MenuCommunication.this, TousLesProjetsActivity.class);
+            intent.putExtra(LOGIN, login);
+            intent.putExtra(PASSWORD, password);
+            intent.putExtra(TOKEN, token);
             startActivityForResult(intent,CONNECTION);
 
         }
