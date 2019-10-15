@@ -4,14 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyJurysActivity">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/jurieslist"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/MidnightBlue"
-        >
-
-    </androidx.recyclerview.widget.RecyclerView>
+    tools:context=".adapters.JuriesRecyclerViewAdapter">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
