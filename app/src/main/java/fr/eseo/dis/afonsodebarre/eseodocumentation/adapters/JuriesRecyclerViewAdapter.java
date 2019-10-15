@@ -22,6 +22,7 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
     private List<String> juriesIds;
     private List<String> juriesDates;
     private List<String> juriesMembers;
+    private List<String> juriesTitles;
 
     private List<Integer> expandedPositions;
 
@@ -31,13 +32,18 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
         juriesIds = new ArrayList<>();
         juriesDates = new ArrayList<>();
         juriesMembers = new ArrayList<>();
+        juriesTitles = new ArrayList<>();
+
 
         expandedPositions = new ArrayList<>();
     }
 
-    public void setJuries(ArrayList<String> juriesIds, ArrayList<String> juriesDates) {
+    public void setJuries(ArrayList<String> juriesIds, ArrayList<String> juriesDates,
+                          ArrayList<String> juriesMembers, ArrayList<String> juriesTitles) {
         this.juriesIds = juriesIds;
         this.juriesDates = juriesDates;
+        this.juriesMembers = juriesMembers;
+        this.juriesTitles = juriesTitles;
         notifyDataSetChanged();
     }
 
@@ -51,9 +57,11 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
 
     @Override
     public void onBindViewHolder(@NonNull final JuriesRecyclerViewHolder holder, final int position) {
-        holder.juryID.setText(juriesIds.get(0));
-        holder.juryDate.setText(juriesDates.get(0));
-
+        holder.juryTitle.setText("Jury n°" + (position + 1));
+        holder.juryID.setText("ID : " + juriesIds.get(position));
+        holder.juryDate.setText(juriesDates.get(position));
+        holder.juryMembers.setText(juriesMembers.get(position));
+        holder.juryProjects.setText("Projects of the jury :" + juriesTitles.get(position));
 
         if(expandedPositions.contains(position)){
             holder.juryProjects.setVisibility(View.VISIBLE);
