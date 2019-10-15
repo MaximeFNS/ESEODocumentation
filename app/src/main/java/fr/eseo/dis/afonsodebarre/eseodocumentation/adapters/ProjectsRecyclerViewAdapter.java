@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,9 +16,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eseo.dis.afonsodebarre.eseodocumentation.MenuCommunication;
+import fr.eseo.dis.afonsodebarre.eseodocumentation.PseudosJurysActivity;
 import fr.eseo.dis.afonsodebarre.eseodocumentation.R;
 import fr.eseo.dis.afonsodebarre.eseodocumentation.TousLesProjetsActivity;
 
+import static android.content.ContentValues.TAG;
 import static android.content.Intent.getIntent;
 
 public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsRecyclerViewAdapter.ProjectsRecyclerViewHolder> {
@@ -95,6 +99,12 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
                     holder.projectDescriptionLabel.setVisibility(View.VISIBLE);
                 }
                 return true;
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                projetsActivity.viewDetails();
             }
         });
     }

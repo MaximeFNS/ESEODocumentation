@@ -99,4 +99,5 @@ public class MenuCommunication extends AppCompatActivity {
         super.onRestart();
         Log.d("MainActivity","onRestart()");
     }
+
 }

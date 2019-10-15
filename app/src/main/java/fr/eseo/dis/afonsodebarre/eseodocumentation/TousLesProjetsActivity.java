@@ -110,5 +110,9 @@ public class TousLesProjetsActivity extends AppCompatActivity {
         }
     }
 
+    public void viewDetails(){
+        Intent intent = new Intent(TousLesProjetsActivity.this, PseudosJurysActivity.class);
+        startActivityForResult(intent,CONNECTION);
+    }
 
 }

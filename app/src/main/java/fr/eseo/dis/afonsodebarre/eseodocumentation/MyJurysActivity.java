@@ -31,6 +31,7 @@ public class MyJurysActivity extends AppCompatActivity {
     private ArrayList<String> JURIES_DATES = new ArrayList<>();
     private ArrayList<String> JURIES_MEMBERS = new ArrayList<>();
     private ArrayList<String> JURIES_PROJECTS = new ArrayList<>();
+    private ArrayList<String> PROJECTS_IDS = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,7 @@ public class MyJurysActivity extends AppCompatActivity {
                     JSONArray arrayprojects = jObject2.getJSONArray("projects");
                     String profsRetour = "";
                     String titleprojects = "\n";
+                    String idsProjects = "";
                     for (int j = 0; j<arraymembers.length();j++){
                         JSONObject memberObject = arraymembers.optJSONObject(j);
                         profsRetour = profsRetour + memberObject.getString("forename") +" "+memberObject.getString("surname") + "   ";
@@ -88,6 +90,13 @@ public class MyJurysActivity extends AppCompatActivity {
                     }
 
                     JURIES_PROJECTS.add(titleprojects);
+
+                    for (int j = 0; j<arrayprojects.length();j++){
+                        JSONObject projectObject = arrayprojects.optJSONObject(j);
+                        PROJECTS_IDS.add(projectObject.getString("projectId"));
+                    }
+
+
                 }
 
             } else {
@@ -114,7 +123,7 @@ public class MyJurysActivity extends AppCompatActivity {
     }
 
     private void setMJJuries(){
-
+        Log.d(TAG, "setMJJuries: " + PROJECTS_IDS.size());
         juriesRecyclerViewAdapter.setJuries(JURIES_ID,JURIES_DATES, JURIES_MEMBERS, JURIES_PROJECTS);
 
             }
