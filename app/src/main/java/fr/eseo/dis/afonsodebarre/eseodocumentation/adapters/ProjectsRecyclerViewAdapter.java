@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,24 +18,45 @@ import java.util.List;
 import fr.eseo.dis.afonsodebarre.eseodocumentation.R;
 import fr.eseo.dis.afonsodebarre.eseodocumentation.TousLesProjetsActivity;
 
+import static android.content.Intent.getIntent;
+
 public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsRecyclerViewAdapter.ProjectsRecyclerViewHolder> {
 
     private final TousLesProjetsActivity projetsActivity;
 
     private List<Integer> projectinfos;
-    private List<Integer> expandedPositions = new ArrayList<>();
+    private List<Integer> expandedPositions;
 
+    private List<String> projects_title;
+    private List<String> projects_id;
+    private List<String> projects_confid;
+    private List<String> projects_description;
 
 
     public ProjectsRecyclerViewAdapter(TousLesProjetsActivity projetsActivity) {
         this.projetsActivity = projetsActivity;
-        //TODO: The following lines will be repalaced
-        projectinfos = new ArrayList<>();
-        for(int i = 0; i < 5; i++){
-            projectinfos.add(i);
-        }
-        //TODO: End of the code to be replaced
+
+        projects_title= new ArrayList<>();
+        projects_id = new ArrayList<>();
+        projects_confid = new ArrayList<>();
+        projects_description = new ArrayList<>();
+
+        Log.d("TAILLE LISTE", "Taille :"+projects_title.size());
+
+        expandedPositions = new ArrayList<>();
     }
+
+
+
+    public void setProjects(List<String> projects_title, List<String> projects_description, List<String> projects_confid, List<String> projects_id) {
+        this.projects_title= projects_title;
+        this.projects_description= projects_description;
+        this.projects_confid= projects_confid;
+        this.projects_id= projects_id;
+        notifyDataSetChanged();
+    }
+
+
 
     @NonNull
     @Override
@@ -46,6 +68,11 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
 
     @Override
     public void onBindViewHolder(@NonNull final ProjectsRecyclerViewHolder holder, final int position) {
+        holder.projectID.setText(projects_id.get(position));
+        holder.projectResume.setText(projects_description.get(position));
+        holder.projectConfidentiality.setText(projects_confid.get(position));
+        holder.projectTitle.setText(projects_title.get(position));
+
         if(expandedPositions.contains(position)){
             holder.projectResume.setVisibility(View.VISIBLE);
             holder.projectDescriptionLabel.setVisibility(View.VISIBLE);
