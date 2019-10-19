@@ -78,6 +78,9 @@ public class MenuJury extends AppCompatActivity {
     @Override
     public void onClick(final View view) {
       Intent intent = new Intent(MenuJury.this, MyReviewsActivity.class);
+      intent.putExtra(LOGIN, login);
+      intent.putExtra(PASSWORD, password);
+      intent.putExtra(TOKEN, token);
       startActivityForResult(intent,CONNECTION);
 
     }

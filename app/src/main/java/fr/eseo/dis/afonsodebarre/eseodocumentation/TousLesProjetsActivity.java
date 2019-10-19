@@ -33,6 +33,7 @@ public class TousLesProjetsActivity extends AppCompatActivity {
     public List<String> PROJECTS_CONFID = new ArrayList<>();
     public List<String> PROJECTS_DESCRIPTION = new ArrayList<>();
     private static final int CONNECTION = 0;
+    public static final String IDPROJET = "IDPROJET";
     private String login, password, token;
     private static final String TAG = "TAG";
     private ProjectsRecyclerViewAdapter projectsRecyclerViewAdapter;
@@ -110,8 +111,11 @@ public class TousLesProjetsActivity extends AppCompatActivity {
         }
     }
 
-    public void viewDetails(){
+    public void viewDetails(String idProjet){
         Intent intent = new Intent(TousLesProjetsActivity.this, ProjectDetailsActivity.class);
+        intent.putExtra(IDPROJET,idProjet);
+        intent.putExtra(LOGIN, login);
+        intent.putExtra(TOKEN,token);
         startActivityForResult(intent,CONNECTION);
     }
 

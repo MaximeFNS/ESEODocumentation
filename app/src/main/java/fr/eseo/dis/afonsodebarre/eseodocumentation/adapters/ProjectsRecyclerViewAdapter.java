@@ -73,6 +73,8 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
     @Override
     public void onBindViewHolder(@NonNull final ProjectsRecyclerViewHolder holder, final int position) {
         holder.projectID.setText("id : "+projects_id.get(position));
+
+
         holder.projectResume.setText(projects_description.get(position));
         holder.projectConfidentiality.setText("confid : "+projects_confid.get(position));
         holder.projectTitle.setText(projects_title.get(position));
@@ -102,9 +104,11 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            String id = projects_id.get(position);
             @Override
             public void onClick(View view) {
-                projetsActivity.viewDetails();
+                Log.d(TAG, "IDProjet : " + id);
+                projetsActivity.viewDetails(id);
             }
         });
     }
