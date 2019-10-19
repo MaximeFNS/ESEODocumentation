@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.eseo.dis.afonsodebarre.eseodocumentation">
-    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -10,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyReviewsActivity"></activity>
+        <activity android:name=".ProjectDetailsActivity"></activity>
+        <activity android:name=".MyReviewsActivity" />
         <activity android:name=".MyGradesActivity" />
         <activity android:name=".MyJurysActivity" />
         <activity android:name=".MenuJury" />
@@ -30,5 +30,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

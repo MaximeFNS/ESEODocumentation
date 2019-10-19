@@ -111,7 +111,7 @@ public class TousLesProjetsActivity extends AppCompatActivity {
     }
 
     public void viewDetails(){
-        Intent intent = new Intent(TousLesProjetsActivity.this, PseudosJurysActivity.class);
+        Intent intent = new Intent(TousLesProjetsActivity.this, ProjectDetailsActivity.class);
         startActivityForResult(intent,CONNECTION);
     }
 
