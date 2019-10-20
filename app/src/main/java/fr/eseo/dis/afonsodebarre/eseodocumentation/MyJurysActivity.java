@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -32,6 +33,8 @@ public class MyJurysActivity extends AppCompatActivity {
     private ArrayList<String> JURIES_MEMBERS = new ArrayList<>();
     private ArrayList<String> JURIES_PROJECTS = new ArrayList<>();
     private ArrayList<String> PROJECTS_IDS = new ArrayList<>();
+    private static final int CONNECTION = 0;
+    public static final String IDJURYPROJECTS = "IDJURYPROJECTS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +127,17 @@ public class MyJurysActivity extends AppCompatActivity {
 
     private void setMJJuries(){
         Log.d(TAG, "setMJJuries: " + PROJECTS_IDS.size());
-        juriesRecyclerViewAdapter.setJuries(JURIES_ID,JURIES_DATES, JURIES_MEMBERS, JURIES_PROJECTS);
+        Log.d(TAG, "setMJJuries: " + PROJECTS_IDS.toString());
+        juriesRecyclerViewAdapter.setJuries(JURIES_ID,JURIES_DATES, JURIES_MEMBERS, JURIES_PROJECTS, PROJECTS_IDS);
 
             }
+
+    public void viewProjects(ArrayList<String> idProjects){
+        Intent intent = new Intent(MyJurysActivity.this, MyJuryProjects.class);
+        intent.putExtra(LOGIN, login);
+        intent.putExtra(TOKEN,token);
+        intent.putExtra(IDJURYPROJECTS,idProjects);
+        startActivityForResult(intent,CONNECTION);
+    }
+
 }

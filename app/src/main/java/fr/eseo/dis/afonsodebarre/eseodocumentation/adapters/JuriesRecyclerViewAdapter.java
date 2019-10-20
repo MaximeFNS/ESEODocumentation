@@ -1,8 +1,10 @@
 package fr.eseo.dis.afonsodebarre.eseodocumentation.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,8 @@ import fr.eseo.dis.afonsodebarre.eseodocumentation.MyJurysActivity;
 import fr.eseo.dis.afonsodebarre.eseodocumentation.R;
 import fr.eseo.dis.afonsodebarre.eseodocumentation.TousLesProjetsActivity;
 
+import static android.content.ContentValues.TAG;
+
 public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecyclerViewAdapter.JuriesRecyclerViewHolder> {
 
     private final MyJurysActivity juriesActivity;
@@ -23,6 +27,7 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
     private List<String> juriesDates;
     private List<String> juriesMembers;
     private List<String> juriesTitles;
+    private ArrayList<String> projectsIDs;
 
     private List<Integer> expandedPositions;
 
@@ -33,17 +38,18 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
         juriesDates = new ArrayList<>();
         juriesMembers = new ArrayList<>();
         juriesTitles = new ArrayList<>();
-
+        projectsIDs = new ArrayList<>();
 
         expandedPositions = new ArrayList<>();
     }
 
     public void setJuries(ArrayList<String> juriesIds, ArrayList<String> juriesDates,
-                          ArrayList<String> juriesMembers, ArrayList<String> juriesTitles) {
+                          ArrayList<String> juriesMembers, ArrayList<String> juriesTitles, ArrayList<String> projectsIDs) {
         this.juriesIds = juriesIds;
         this.juriesDates = juriesDates;
         this.juriesMembers = juriesMembers;
         this.juriesTitles = juriesTitles;
+        this.projectsIDs = projectsIDs;
         notifyDataSetChanged();
     }
 
@@ -102,6 +108,7 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
         private final TextView juryDate;
         private final TextView juryMembers;
         private final TextView juryProjects;
+        private final Button seeprojects;
 
         public JuriesRecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -110,8 +117,17 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
             juryDate = itemView.findViewById(R.id.jury_date);
             juryMembers = itemView.findViewById(R.id.juries_members);
             juryProjects = itemView.findViewById(R.id.juries_projects);
+            seeprojects = itemView.findViewById(R.id.bn_juryprojects);
+
+            seeprojects.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    juriesActivity.viewProjects(projectsIDs);
+                }
+            });
         }
     }
+
 
 
 }

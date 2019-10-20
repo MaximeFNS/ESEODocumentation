@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eseo.dis.afonsodebarre.eseodocumentation.MenuCommunication;
+import fr.eseo.dis.afonsodebarre.eseodocumentation.MyJuryProjects;
 import fr.eseo.dis.afonsodebarre.eseodocumentation.PseudosJurysActivity;
 import fr.eseo.dis.afonsodebarre.eseodocumentation.R;
 import fr.eseo.dis.afonsodebarre.eseodocumentation.TousLesProjetsActivity;
@@ -26,8 +27,8 @@ import static android.content.Intent.getIntent;
 
 public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsRecyclerViewAdapter.ProjectsRecyclerViewHolder> {
 
-    private final TousLesProjetsActivity projetsActivity;
-
+    private TousLesProjetsActivity projetsActivity;
+    private MyJuryProjects myJuryProjects;
 
     private List<Integer> expandedPositions;
 
@@ -35,6 +36,8 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
     private List<String> projects_id;
     private List<String> projects_confid;
     private List<String> projects_description;
+    private boolean inallProjects = false;
+    private boolean inmyjuryprojects = false;
 
 
     public ProjectsRecyclerViewAdapter(TousLesProjetsActivity projetsActivity) {
@@ -44,13 +47,20 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
         projects_id = new ArrayList<>();
         projects_confid = new ArrayList<>();
         projects_description = new ArrayList<>();
-
-
-
+        inallProjects = true;
         expandedPositions = new ArrayList<>();
     }
 
+   public ProjectsRecyclerViewAdapter(MyJuryProjects myJuryProjects) {
+        this.myJuryProjects = myJuryProjects;
 
+        projects_title= new ArrayList<>();
+        projects_id = new ArrayList<>();
+        projects_confid = new ArrayList<>();
+        projects_description = new ArrayList<>();
+        inmyjuryprojects = true;
+        expandedPositions = new ArrayList<>();
+    }
 
     public void setProjects(List<String> projects_title, List<String> projects_description, List<String> projects_confid, List<String> projects_id) {
         this.projects_title= projects_title;
@@ -108,7 +118,13 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "IDProjet : " + id);
-                projetsActivity.viewDetails(id);
+                if(inallProjects){
+                    projetsActivity.viewDetails(id);
+                }
+                if(inmyjuryprojects){
+                    myJuryProjects.viewDetails(id);
+                }
+
             }
         });
     }
