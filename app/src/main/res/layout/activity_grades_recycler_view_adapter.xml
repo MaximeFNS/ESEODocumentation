@@ -4,15 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyGradesActivity">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/gradeslist"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/MidnightBlue"
-        >
-
-    </androidx.recyclerview.widget.RecyclerView>
+    tools:context=".adapters.GradesRecyclerViewAdapter">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

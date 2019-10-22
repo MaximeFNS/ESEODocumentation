@@ -142,7 +142,7 @@ public class WebServiceConnectivity extends AsyncTask<String, String, String> {
         JSONObject obj = null;
         try {
             obj = new JSONObject(response);
-            String result = obj.getString("pageName");
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -158,28 +158,6 @@ public class WebServiceConnectivity extends AsyncTask<String, String, String> {
         }
         Log.d("postexecute","result"+result.toString());
     }
-
-    private String recupToken(BufferedReader reader){
-        String line = "";
-
-        Log.d("taskToken", "recup");
-        try {
-            while (((line = reader.readLine()) != null)) {
-                Log.d("taskToken", line);
-                if (line.contains("token"))
-                    Log.d("taskToken", line.substring(11, line.length()-1));
-                return line.substring(11, line.length()-1);
-
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d("taskToken", e.toString());
-        }
-        return "not working dude";
-    }
-
-
 
 }
 
