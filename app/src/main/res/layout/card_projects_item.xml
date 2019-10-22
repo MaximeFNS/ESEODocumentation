@@ -29,18 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/project_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="4"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/project_description"
-            app:layout_constraintStart_toStartOf="@+id/project_titre"
-            app:layout_constraintTop_toBottomOf="@+id/project_titre" />
+
 
         <TextView
             android:id="@+id/project_confidentiality"

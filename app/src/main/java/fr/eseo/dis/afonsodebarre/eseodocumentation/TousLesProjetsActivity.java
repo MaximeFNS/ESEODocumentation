@@ -32,8 +32,17 @@ public class TousLesProjetsActivity extends AppCompatActivity {
     public List<String> PROJECTS_ID = new ArrayList<>();
     public List<String> PROJECTS_CONFID = new ArrayList<>();
     public List<String> PROJECTS_DESCRIPTION = new ArrayList<>();
+    public List<String> PROJECTS_SUPERVISOR= new ArrayList<>();
+    public List<String> PROJECTS_POSTER= new ArrayList<>();
+    public List<String> PROJECTS_STUDENTS = new ArrayList<>();
     private static final int CONNECTION = 0;
     public static final String IDPROJET = "IDPROJET";
+    public static final String EMP = "EMP";
+    public static final String DESCRPIP = "DESCRIP";
+    public static final String CONFID = "CONFID";
+    public static final String SUPERVISOR = "SUPERVISOR";
+    public static final String STUDENTS = "STUDENTS";
+    public static final String TITLE = "TITLE";
     private String login, password, token;
     private static final String TAG = "TAG";
     private ProjectsRecyclerViewAdapter projectsRecyclerViewAdapter;
@@ -55,7 +64,7 @@ public class TousLesProjetsActivity extends AppCompatActivity {
         projectsRecyclerViewAdapter = new ProjectsRecyclerViewAdapter(this);
         projectsRecycler.setAdapter(projectsRecyclerViewAdapter);
         importProjects();
-        projectsRecyclerViewAdapter.setProjects(PROJECTS_TITLE,PROJECTS_DESCRIPTION,PROJECTS_CONFID,PROJECTS_ID);
+        projectsRecyclerViewAdapter.setProjects(PROJECTS_TITLE,PROJECTS_DESCRIPTION,PROJECTS_CONFID,PROJECTS_ID,PROJECTS_POSTER,PROJECTS_STUDENTS,PROJECTS_SUPERVISOR);
     }
 
     private void importProjects() {
@@ -79,16 +88,37 @@ public class TousLesProjetsActivity extends AppCompatActivity {
 
                 for (int i = 0; i < jObject.getJSONArray("projects").length(); i++){
                     JSONArray arrayProjects = jObject.getJSONArray("projects");
-                    JSONObject projetcObject = arrayProjects.getJSONObject(i);
-                    String projectTitleString = projetcObject.getString("title");
-                    String projectIdString = projetcObject.getString("projectId");
-                    String projectConfidString = projetcObject.getString("confid");
-                    String projectDescriptionString = projetcObject.getString("descrip");
+                    JSONObject projectObject = arrayProjects.getJSONObject(i);
+                    String projectTitleString = projectObject.getString("title");
+                    String projectIdString = projectObject.getString("projectId");
+                    String projectConfidString = projectObject.getString("confid");
+                    String projectDescriptionString = projectObject.getString("descrip");
+                    String projectPosterString = projectObject.getString("poster");
+                    if (projectPosterString==null){
+                        projectPosterString="";
+                    }
                     Log.d("TITRE PROJET", projectTitleString);
                     PROJECTS_TITLE.add(projectTitleString);
                     PROJECTS_ID.add(projectIdString);
                     PROJECTS_CONFID.add(projectConfidString);
                     PROJECTS_DESCRIPTION.add(projectDescriptionString);
+                    PROJECTS_POSTER.add(projectPosterString);
+                    JSONArray arrayStudents = projectObject.getJSONArray("students");
+                    String studentString="";
+                    for (int j=0; j< arrayStudents.length();j++){
+                        JSONObject student = arrayStudents.getJSONObject(j);
+                        studentString += student.getString("forename") + " " + student.getString("surname")+"\n";
+
+                    }
+                    PROJECTS_STUDENTS.add(studentString);
+
+                    JSONObject supervisor = projectObject.getJSONObject("supervisor");
+                    String supString = supervisor.getString("forename")+ " " + supervisor.getString("surname");
+                    PROJECTS_SUPERVISOR.add(supString);
+
+
+
+
                 }
 
 
@@ -111,9 +141,15 @@ public class TousLesProjetsActivity extends AppCompatActivity {
         }
     }
 
-    public void viewDetails(String idProjet){
+    public void viewDetails(String idProjet, String posterEmplacement, String title, String description, String confid, String supervisor, String students){
         Intent intent = new Intent(TousLesProjetsActivity.this, ProjectDetailsActivity.class);
         intent.putExtra(IDPROJET,idProjet);
+        intent.putExtra(EMP,posterEmplacement);
+        intent.putExtra(TITLE,title);
+        intent.putExtra(DESCRPIP,description);
+        intent.putExtra(CONFID,confid);
+        intent.putExtra(SUPERVISOR,supervisor);
+        intent.putExtra(STUDENTS,students);
         intent.putExtra(LOGIN, login);
         intent.putExtra(TOKEN,token);
         startActivityForResult(intent,CONNECTION);
