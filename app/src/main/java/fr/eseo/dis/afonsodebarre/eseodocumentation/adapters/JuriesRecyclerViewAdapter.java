@@ -28,6 +28,7 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
     private List<String> juriesMembers;
     private List<String> juriesTitles;
     private ArrayList<String> projectsIDs;
+    private ArrayList<String> projectstitles;
 
     private List<Integer> expandedPositions;
 
@@ -39,17 +40,19 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
         juriesMembers = new ArrayList<>();
         juriesTitles = new ArrayList<>();
         projectsIDs = new ArrayList<>();
+        projectstitles = new ArrayList<>();
 
         expandedPositions = new ArrayList<>();
     }
 
     public void setJuries(ArrayList<String> juriesIds, ArrayList<String> juriesDates,
-                          ArrayList<String> juriesMembers, ArrayList<String> juriesTitles, ArrayList<String> projectsIDs) {
+                          ArrayList<String> juriesMembers, ArrayList<String> juriesTitles, ArrayList<String> projectsIDs, ArrayList<String> titles) {
         this.juriesIds = juriesIds;
         this.juriesDates = juriesDates;
         this.juriesMembers = juriesMembers;
         this.juriesTitles = juriesTitles;
         this.projectsIDs = projectsIDs;
+        this.projectstitles = titles;
         notifyDataSetChanged();
     }
 
@@ -109,6 +112,7 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
         private final TextView juryMembers;
         private final TextView juryProjects;
         private final Button seeprojects;
+        private final Button gradeprojects;
 
         public JuriesRecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -118,11 +122,19 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
             juryMembers = itemView.findViewById(R.id.juries_members);
             juryProjects = itemView.findViewById(R.id.juries_projects);
             seeprojects = itemView.findViewById(R.id.bn_juryprojects);
+            gradeprojects = itemView.findViewById(R.id.bn_gradeprojects);
 
             seeprojects.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     juriesActivity.viewProjects(projectsIDs);
+                }
+            });
+
+            gradeprojects.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    juriesActivity.gradeProjects(projectsIDs, projectstitles);
                 }
             });
         }

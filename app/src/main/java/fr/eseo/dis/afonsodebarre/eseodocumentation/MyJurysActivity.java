@@ -33,8 +33,10 @@ public class MyJurysActivity extends AppCompatActivity {
     private ArrayList<String> JURIES_MEMBERS = new ArrayList<>();
     private ArrayList<String> JURIES_PROJECTS = new ArrayList<>();
     private ArrayList<String> PROJECTS_IDS = new ArrayList<>();
+    private ArrayList<String> PROJECTS_TITLES = new ArrayList<>();
     private static final int CONNECTION = 0;
     public static final String IDJURYPROJECTS = "IDJURYPROJECTS";
+    public static final String JURIESTITLES = "JURIESTITLES";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +82,7 @@ public class MyJurysActivity extends AppCompatActivity {
                     JSONArray arrayprojects = jObject2.getJSONArray("projects");
                     String profsRetour = "";
                     String titleprojects = "\n";
-                    String idsProjects = "";
+
                     for (int j = 0; j<arraymembers.length();j++){
                         JSONObject memberObject = arraymembers.optJSONObject(j);
                         profsRetour = profsRetour + memberObject.getString("forename") +" "+memberObject.getString("surname") + "   ";
@@ -97,6 +99,7 @@ public class MyJurysActivity extends AppCompatActivity {
                     for (int j = 0; j<arrayprojects.length();j++){
                         JSONObject projectObject = arrayprojects.optJSONObject(j);
                         PROJECTS_IDS.add(projectObject.getString("projectId"));
+                        PROJECTS_TITLES.add(projectObject.getString("title"));
                     }
 
 
@@ -128,7 +131,7 @@ public class MyJurysActivity extends AppCompatActivity {
     private void setMJJuries(){
         Log.d(TAG, "setMJJuries: " + PROJECTS_IDS.size());
         Log.d(TAG, "setMJJuries: " + PROJECTS_IDS.toString());
-        juriesRecyclerViewAdapter.setJuries(JURIES_ID,JURIES_DATES, JURIES_MEMBERS, JURIES_PROJECTS, PROJECTS_IDS);
+        juriesRecyclerViewAdapter.setJuries(JURIES_ID,JURIES_DATES, JURIES_MEMBERS, JURIES_PROJECTS, PROJECTS_IDS, PROJECTS_TITLES);
 
             }
 
@@ -137,6 +140,15 @@ public class MyJurysActivity extends AppCompatActivity {
         intent.putExtra(LOGIN, login);
         intent.putExtra(TOKEN,token);
         intent.putExtra(IDJURYPROJECTS,idProjects);
+        startActivityForResult(intent,CONNECTION);
+    }
+
+    public void gradeProjects(ArrayList<String> idProjects, ArrayList<String> titles){
+        Intent intent = new Intent(MyJurysActivity.this, MyGradesActivity.class);
+        intent.putExtra(LOGIN, login);
+        intent.putExtra(TOKEN,token);
+        intent.putExtra(IDJURYPROJECTS,idProjects);
+        intent.putExtra(JURIESTITLES,titles);
         startActivityForResult(intent,CONNECTION);
     }
 
