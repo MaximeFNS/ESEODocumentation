@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
@@ -73,16 +74,16 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
         holder.students.setText(projectsstudents.get(position));
         holder.grades.setText(projectsmygrades.get(position));
         holder.averages.setText(projectsaverages.get(position));
-        holder.positionGrade = position;
-        Log.d(TAG, "PositionGr B : " + position);
 
         if(expandedPositions.contains(position)){
             holder.np1.setVisibility(View.VISIBLE);
             holder.np2.setVisibility(View.VISIBLE);
+            holder.button.setVisibility(View.VISIBLE);
         }
         else{
             holder.np1.setVisibility(View.GONE);
             holder.np2.setVisibility(View.GONE);
+            holder.button.setVisibility(View.GONE);
         }
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
 
@@ -92,14 +93,15 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
                     expandedPositions.remove(new Integer(position));
                     holder.np1.setVisibility(View.GONE);
                     holder.np2.setVisibility(View.GONE);
+                    holder.button.setVisibility(View.GONE);
                 }
                 else{
                     expandedPositions.add(position);
-                    holder.positionGrade = position;
                     listNamesProject = listNames.get(position);
-                    Log.d(TAG, "onLongClick: " + listNamesProject.toString());
+                    holder.Majnp2(listNamesProject.size());
                     holder.np1.setVisibility(View.VISIBLE);
                     holder.np2.setVisibility(View.VISIBLE);
+                    holder.button.setVisibility(View.VISIBLE);
                 }
                 return true;
             }
@@ -115,9 +117,16 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
         private final TextView averages;
         private final NumberPicker np1;
         private final NumberPicker np2;
-        private int positionGrade;
+        private final Button button;
 
-
+        public void Majnp2 (int taille){
+            np2.setMaxValue(taille);
+            String[] valuesNames = new String[listNamesProject.size()];
+            for(int s = 0; s<listNamesProject.size();s++){
+                valuesNames[s] = listNamesProject.get(s);
+            }
+            np2.setDisplayedValues(valuesNames);
+        }
 
         public GradesRecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -126,6 +135,7 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
             students = itemView.findViewById(R.id.students);
             grades = itemView.findViewById(R.id.mygrades);
             averages = itemView.findViewById(R.id.averages);
+            button = itemView.findViewById(R.id.buttonValider);
 
             np1 = (NumberPicker) itemView.findViewById(R.id.numberpickernote);
             np1.setMinValue(0);
@@ -133,19 +143,16 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
             np1.setWrapSelectorWheel(true);
 
             np2 = (NumberPicker) itemView.findViewById(R.id.numberpickeretu);
-            np2.setMinValue(0);
-            Log.d(TAG, "PositionGr A : " + positionGrade);
-             listNames.get(positionGrade);
-            np2.setMaxValue(listNamesProject.size());
+            np2.setMinValue(1);
+            np2.setMaxValue(1);
+            np2.setWrapSelectorWheel(true);
 
-            //np2.setDisplayedValues( new String[] { "", "France", "United Kingdom" } );
-            np1.setWrapSelectorWheel(true);
-
+            final int[] incetu = new int[2];
             np1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @SuppressLint("LongLogTag")
                 @Override
                 public void onValueChange(NumberPicker picker, int oldVal, int newVal){
-
+                    incetu[0] = newVal;
                 }
             });
 
@@ -153,7 +160,16 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
                 @SuppressLint("LongLogTag")
                 @Override
                 public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                    incetu[1] = newVal;
+                }
+            });
 
+            Log.e(TAG, "incetu: " + incetu[0] + " " + incetu[1]);
+
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.e(TAG, "incetu: " + incetu[0] + " " + incetu[1]);
                 }
             });
 
