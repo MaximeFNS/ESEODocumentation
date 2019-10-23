@@ -79,6 +79,9 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         Button retour = (Button) findViewById(R.id.bn_details);
         retour.setOnClickListener(onReturnButtonClicked);
 
+        Button map = (Button) findViewById(R.id.map_button);
+        map.setOnClickListener(onMapButtonClicked);
+
         TextView detailsTitle = (TextView)findViewById(R.id.details_titre) ;
         TextView detailsEmplacament=(TextView)findViewById(R.id.details_emplacement) ;
         TextView detailsSupervisor=(TextView)findViewById(R.id.details_supervisor) ;
@@ -118,6 +121,15 @@ public class ProjectDetailsActivity extends AppCompatActivity {
             Intent intent = new Intent(ProjectDetailsActivity.this, TousLesProjetsActivity.class);
             intent.putExtra(LOGIN, login);
             intent.putExtra(TOKEN, token);
+            startActivityForResult(intent,CONNECTION);
+
+        }
+    };
+
+    private final View.OnClickListener onMapButtonClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(final View view) {
+            Intent intent = new Intent(ProjectDetailsActivity.this, MapActivity.class);
             startActivityForResult(intent,CONNECTION);
 
         }
