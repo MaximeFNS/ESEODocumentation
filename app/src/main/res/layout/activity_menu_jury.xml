@@ -1,63 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageButton
         android:id="@+id/tousProjetsImage"
-        android:layout_width="322dp"
-        android:layout_height="207dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
-        android:src="@drawable/eseotest"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/eseotest" />
 
     <ImageButton
         android:id="@+id/pseudosjurysImage"
-        android:layout_width="289dp"
-        android:layout_height="206dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="220dp"
+        android:layout_width="wrap_content"
+        android:layout_height="303dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
-        android:src="@drawable/pseudojury"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/pseudojury" />
 
-    <ImageButton
-        android:id="@+id/gradeImage"
-        android:layout_width="127dp"
-        android:layout_height="118dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="440dp"
-        android:adjustViewBounds="true"
-        android:background="@android:color/transparent"
-        android:scaleType="centerInside"
-        android:src="@drawable/note"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/reviewImage"
-        android:layout_width="124dp"
-        android:layout_height="114dp"
-        android:layout_marginTop="440dp"
-        android:layout_marginEnd="32dp"
-        android:adjustViewBounds="true"
-        android:background="@android:color/transparent"
-        android:baselineAligned="false"
-        android:scaleType="fitXY"
-        android:src="@drawable/postit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

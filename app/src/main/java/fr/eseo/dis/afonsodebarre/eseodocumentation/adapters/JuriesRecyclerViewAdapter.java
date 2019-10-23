@@ -27,8 +27,9 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
     private List<String> juriesDates;
     private List<String> juriesMembers;
     private List<String> juriesTitles;
-    private ArrayList<String> projectsIDs;
-    private ArrayList<String> projectstitles;
+    private ArrayList<ArrayList<String>> projectstitles;
+    private ArrayList<ArrayList<String>> infosClicks;
+
 
     private List<Integer> expandedPositions;
 
@@ -39,20 +40,20 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
         juriesDates = new ArrayList<>();
         juriesMembers = new ArrayList<>();
         juriesTitles = new ArrayList<>();
-        projectsIDs = new ArrayList<>();
         projectstitles = new ArrayList<>();
-
+        infosClicks = new ArrayList<>();
         expandedPositions = new ArrayList<>();
     }
 
     public void setJuries(ArrayList<String> juriesIds, ArrayList<String> juriesDates,
-                          ArrayList<String> juriesMembers, ArrayList<String> juriesTitles, ArrayList<String> projectsIDs, ArrayList<String> titles) {
+                          ArrayList<String> juriesMembers, ArrayList<String> juriesTitles,
+                          ArrayList<ArrayList<String>> titles, ArrayList<ArrayList<String>> infosClick) {
         this.juriesIds = juriesIds;
         this.juriesDates = juriesDates;
         this.juriesMembers = juriesMembers;
         this.juriesTitles = juriesTitles;
-        this.projectsIDs = projectsIDs;
         this.projectstitles = titles;
+        this.infosClicks = infosClick;
         notifyDataSetChanged();
     }
 
@@ -71,7 +72,7 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
         holder.juryDate.setText(juriesDates.get(position));
         holder.juryMembers.setText(juriesMembers.get(position));
         holder.juryProjects.setText("Projects of the jury :" + juriesTitles.get(position));
-
+        holder.positionJury = position;
         if(expandedPositions.contains(position)){
             holder.juryProjects.setVisibility(View.VISIBLE);
             holder.juryMembers.setVisibility(View.VISIBLE);
@@ -113,6 +114,7 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
         private final TextView juryProjects;
         private final Button seeprojects;
         private final Button gradeprojects;
+        private int positionJury;
 
         public JuriesRecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -127,14 +129,15 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
             seeprojects.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    juriesActivity.viewProjects(projectsIDs);
+
+                    juriesActivity.viewProjects(infosClicks.get(positionJury));
                 }
             });
 
             gradeprojects.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    juriesActivity.gradeProjects(projectsIDs, projectstitles);
+                    juriesActivity.gradeProjects(infosClicks.get(positionJury), projectstitles.get(positionJury));
                 }
             });
         }

@@ -8,10 +8,11 @@
 
     <ImageView
         android:id="@+id/posterFull"
-        android:layout_width="413dp"
-        android:layout_height="665dp"
+        android:layout_width="407dp"
+        android:layout_height="723dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

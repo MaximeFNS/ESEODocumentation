@@ -32,8 +32,10 @@ public class MyJurysActivity extends AppCompatActivity {
     private ArrayList<String> JURIES_DATES = new ArrayList<>();
     private ArrayList<String> JURIES_MEMBERS = new ArrayList<>();
     private ArrayList<String> JURIES_PROJECTS = new ArrayList<>();
-    private ArrayList<String> PROJECTS_IDS = new ArrayList<>();
-    private ArrayList<String> PROJECTS_TITLES = new ArrayList<>();
+    private ArrayList<String> TEMPORARY = new ArrayList<>();
+    private ArrayList<String> TEMPORARYTITLES = new ArrayList<>();
+    private ArrayList<ArrayList<String>> LISTOFLISTIDS = new ArrayList<>();
+    private ArrayList<ArrayList<String>> LISTOFLISTTITLES = new ArrayList<>();
     private static final int CONNECTION = 0;
     public static final String IDJURYPROJECTS = "IDJURYPROJECTS";
     public static final String JURIESTITLES = "JURIESTITLES";
@@ -98,10 +100,15 @@ public class MyJurysActivity extends AppCompatActivity {
 
                     for (int j = 0; j<arrayprojects.length();j++){
                         JSONObject projectObject = arrayprojects.optJSONObject(j);
-                        PROJECTS_IDS.add(projectObject.getString("projectId"));
-                        PROJECTS_TITLES.add(projectObject.getString("title"));
+                        Log.d(TAG, "MJA : " + projectObject.getString("projectId"));
+                        TEMPORARY.add(projectObject.getString("projectId"));
+                        TEMPORARYTITLES.add(projectObject.getString("title"));
                     }
 
+                    LISTOFLISTIDS.add(TEMPORARY);
+                    LISTOFLISTTITLES.add(TEMPORARYTITLES);
+                    TEMPORARY = new ArrayList<>();
+                    TEMPORARYTITLES = new ArrayList<>();
 
                 }
 
@@ -117,7 +124,6 @@ public class MyJurysActivity extends AppCompatActivity {
             e.printStackTrace();
 
         }
-
         RecyclerView juriesRecycler = (RecyclerView)findViewById(R.id.jurieslist);
         juriesRecycler.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -129,9 +135,8 @@ public class MyJurysActivity extends AppCompatActivity {
     }
 
     private void setMJJuries(){
-        Log.d(TAG, "setMJJuries: " + PROJECTS_IDS.size());
-        Log.d(TAG, "setMJJuries: " + PROJECTS_IDS.toString());
-        juriesRecyclerViewAdapter.setJuries(JURIES_ID,JURIES_DATES, JURIES_MEMBERS, JURIES_PROJECTS, PROJECTS_IDS, PROJECTS_TITLES);
+
+        juriesRecyclerViewAdapter.setJuries(JURIES_ID,JURIES_DATES, JURIES_MEMBERS, JURIES_PROJECTS, LISTOFLISTTITLES,LISTOFLISTIDS);
 
             }
 

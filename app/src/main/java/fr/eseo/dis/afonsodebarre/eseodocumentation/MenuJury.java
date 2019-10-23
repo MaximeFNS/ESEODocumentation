@@ -34,11 +34,11 @@ public class MenuJury extends AppCompatActivity {
     juryButton = findViewById(R.id.pseudosjurysImage);
     juryButton.setOnClickListener(onPseudosJurysButtonClicked);
 
-    gradeButton = findViewById(R.id.gradeImage);
+    /*gradeButton = findViewById(R.id.gradeImage);
     gradeButton.setOnClickListener(onGradeButtonClicked);
 
     reviewButton = findViewById(R.id.reviewImage);
-    reviewButton.setOnClickListener(onReviewButtonClicked);
+    reviewButton.setOnClickListener(onReviewButtonClicked);*/
   }
 
   private final View.OnClickListener onProjetsButtonClicked = new View.OnClickListener() {

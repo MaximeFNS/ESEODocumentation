@@ -32,6 +32,9 @@ public class MyGradesActivity extends AppCompatActivity {
     private ArrayList<String> GRADES_AVERAGE = new ArrayList<>();
     private GradesRecyclerViewAdapter gradesRecyclerViewAdapter;
 
+    private ArrayList<String> TEMPORARYNAMES = new ArrayList<>();
+    private ArrayList<ArrayList<String>> LISTOFLISTNAMES = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +68,11 @@ public class MyGradesActivity extends AppCompatActivity {
                             eleves.add(gradeObject.getString("forename") + " " + gradeObject.getString("surname") + "\n");
                             myg.add(gradeObject.getString("mynote")+ "\n");
                             avg.add(gradeObject.getString("avgNote")+ "\n");
-
+                            TEMPORARYNAMES.add(gradeObject.getString("forename") + " " + gradeObject.getString("surname"));
 
                     }
+                    LISTOFLISTNAMES.add(TEMPORARYNAMES);
+                    TEMPORARYNAMES = new ArrayList<>();
                     for(int ielev = 0; ielev<eleves.size();ielev++){
                         eleve = eleve + eleves.get(ielev);
                         allmyg = allmyg + myg.get(ielev);
@@ -95,6 +100,6 @@ public class MyGradesActivity extends AppCompatActivity {
         gradesRecycler.setLayoutManager(llm);
         gradesRecyclerViewAdapter = new GradesRecyclerViewAdapter(this);
         gradesRecycler.setAdapter(gradesRecyclerViewAdapter);
-        gradesRecyclerViewAdapter.setGrades(titles, GRADES_STUDENTS, GRADES_GIVEN, GRADES_AVERAGE);
+        gradesRecyclerViewAdapter.setGrades(titles, GRADES_STUDENTS, GRADES_GIVEN, GRADES_AVERAGE, LISTOFLISTNAMES);
     }
 }
