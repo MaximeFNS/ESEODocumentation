@@ -1,7 +1,53 @@
 <resources>
     <string name="app_name">ESEODocumentation</string>
     <string name="connection">To connect</string>
+
+    <!--activity_main-->
     <string name="ask_login">Welcome to ESEODocumentation :</string>
     <string name="hint_login">Login</string>
     <string name="hint_password">Password</string>
+    <string name="introduction">Introduction</string>
+    <string name="user_login">Login of the user</string>
+    <string name="user_password">Password of the user</string>
+    <string name="logo_eseo">ESEO Logo</string>
+
+    <!--activity_map-->
+    <string name="plan_eseo">Plan of the corridor to find all posters</string>
+
+    <!--activity_menu_jury-->
+    <string name="buttonImage_Project">Image Button to access to all projects</string>
+    <string name="buttonImage_Jury">Image Button to access to my Juries</string>
+
+    <!--activity_poster-->
+    <string name="poster_full">Full version of the selected poster</string>
+
+    <!--activity_project_details-->
+    <string name="details_title">Title of the project</string>
+    <string name="details_spot">Spot of the project</string>
+    <string name="details_see_plan">See the plan</string>
+    <string name="details_holder">Holder of the project</string>
+    <string name="details_students">Students of the project</string>
+    <string name="details_description">Description of the project</string>
+    <string name="details_confidentiality">Confidentiality of the project</string>
+    <string name="details_description_content">Description content of the project</string>
+    <string name="details_return">Return to projects</string>
+    <string name="poster_thumb">Thumb version of the selected poster</string>
+
+    <!--card_grades_item-->
+    <string name="grades_mine">My note</string>
+    <string name="grades_average">Average note</string>
+    <string name="grades_students">Students</string>
+    <string name="grades_new">New grade ?</string>
+    <string name="grades_button">Add a grade</string>
+
+    <!--card_juries_item-->
+    <string name="jury_number">Jury n°</string>
+    <string name="jury_id">Id of the jury</string>
+    <string name="jury_date">Date of the jury</string>
+    <string name="jury_members">Members of the jury</string>
+    <string name="jury_projects">Projects of the jury</string>
+    <string name="jury_button_grades">See projects</string>
+    <string name="jury_button_projects">Grade projects</string>
+
+
 </resources>

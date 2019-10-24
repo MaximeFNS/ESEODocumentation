@@ -20,7 +20,7 @@
             android:layout_marginEnd="16dp"
             android:maxLines="2"
             android:minLines="2"
-            android:text="Project Test"
+            android:text="@string/details_title"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -29,15 +29,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-
         <TextView
             android:id="@+id/project_confidentiality"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:text="0"
+            android:text="@string/details_confidentiality"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="@+id/project_titre"
             app:layout_constraintTop_toBottomOf="@+id/project_titre" />
@@ -49,7 +47,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="112dp"
             android:layout_marginBottom="16dp"
-            android:text="Description"
+            android:text="@string/details_description"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/project_resume"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +61,7 @@
             android:layout_marginTop="112dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="16dp"
-            android:text="This is the description of the project"
+            android:text="@string/details_description_content"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

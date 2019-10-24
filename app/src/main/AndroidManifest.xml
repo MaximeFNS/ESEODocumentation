@@ -16,12 +16,10 @@
         <activity android:name=".MyJuryProjects" />
         <activity android:name=".PosterActivity" />
         <activity android:name=".ProjectDetailsActivity" />
-        <activity android:name=".MyReviewsActivity" />
         <activity android:name=".MyGradesActivity" />
         <activity android:name=".MyJurysActivity" />
         <activity android:name=".MenuJury" />
         <activity android:name=".adapters.ProjectsRecyclerViewAdapter" />
-        <activity android:name=".PseudosJurysActivity" />
         <activity android:name=".TousLesProjetsActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

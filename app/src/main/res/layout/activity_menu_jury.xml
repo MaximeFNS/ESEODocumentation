@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
+        android:contentDescription="@string/buttonImage_Project"
         android:scaleType="centerInside"
         android:src="@drawable/eseotest" />
 
@@ -18,6 +19,7 @@
         android:layout_height="303dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
+        android:contentDescription="@string/buttonImage_Jury"
         android:scaleType="centerInside"
         android:src="@drawable/pseudojury" />
 

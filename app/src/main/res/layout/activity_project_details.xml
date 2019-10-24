@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:text="Monty Python and the Holy Grail"
+                android:text="@string/details_title"
                 android:textAlignment="center"
                 android:textSize="36sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,8 @@
                 android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/details_titre" />
+                app:layout_constraintTop_toBottomOf="@+id/details_titre"
+                android:contentDescription="@string/poster_thumb" />
 
             <TextView
                 android:id="@+id/details_emplacement"
@@ -50,7 +51,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
-                android:text="Emplacement : "
+                android:text="@string/details_spot"
                 app:layout_constraintBottom_toTopOf="@+id/details_supervisor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/poster" />
@@ -61,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
                 android:layout_marginStart="16dp"
-                android:text="Voir le plan" />
+                android:text="@string/details_see_plan" />
 
             <TextView
                 android:id="@+id/details_supervisor"
@@ -69,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="16dp"
-                android:text="Porteur: TERRY GILLIAM"
+                android:text="@string/details_holder"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/details_students"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -80,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:layout_marginStart="16dp"
-                android:text="Etudiants"
+                android:text="@string/details_students"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/rv_details_students"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -103,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:layout_marginStart="16dp"
-                android:text="Description:"
+                android:text="@string/details_description"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/details_description"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -116,7 +117,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:background="@color/LightGrey"
-                android:text="Le roi Arthur et les Chevaliers de la Table Ronde se lancent à la conquête du Graal, chevauchant de fantômatiques montures dans un bruitage de noix de coco cognées. La petite troupe va devoir passer mille épreuves, dont un chevalier à trois têtes, des jouvencelles en chaleur, voire même un terrible lapin tueur."
+                android:text="@string/details_description_content"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/details_confid"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -128,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:layout_marginStart="8dp"
-                android:text="Confidentialité:"
+                android:text="@string/details_confidentiality"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/details_description" />
 
@@ -137,7 +138,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
-                android:text="Retour"
+                android:text="@string/details_return"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/details_description" />
 

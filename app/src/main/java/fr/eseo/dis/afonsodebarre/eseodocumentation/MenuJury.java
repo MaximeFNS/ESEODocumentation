@@ -13,10 +13,9 @@ import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.TOKEN;
 public class MenuJury extends AppCompatActivity {
 
   private static final int CONNECTION = 0;
-  ImageButton reviewButton;
+
   ImageButton juryButton;
   ImageButton projectButton;
-  ImageButton gradeButton;
 
   private String login, password, token;
 
@@ -34,11 +33,6 @@ public class MenuJury extends AppCompatActivity {
     juryButton = findViewById(R.id.pseudosjurysImage);
     juryButton.setOnClickListener(onPseudosJurysButtonClicked);
 
-    /*gradeButton = findViewById(R.id.gradeImage);
-    gradeButton.setOnClickListener(onGradeButtonClicked);
-
-    reviewButton = findViewById(R.id.reviewImage);
-    reviewButton.setOnClickListener(onReviewButtonClicked);*/
   }
 
   private final View.OnClickListener onProjetsButtonClicked = new View.OnClickListener() {
@@ -57,27 +51,6 @@ public class MenuJury extends AppCompatActivity {
     @Override
     public void onClick(final View view) {
       Intent intent = new Intent(MenuJury.this, MyJurysActivity.class);
-      intent.putExtra(LOGIN, login);
-      intent.putExtra(PASSWORD, password);
-      intent.putExtra(TOKEN, token);
-      startActivityForResult(intent,CONNECTION);
-
-    }
-  };
-
-  private final View.OnClickListener onGradeButtonClicked = new View.OnClickListener() {
-    @Override
-    public void onClick(final View view) {
-      Intent intent = new Intent(MenuJury.this, MyGradesActivity.class);
-      startActivityForResult(intent,CONNECTION);
-
-    }
-  };
-
-  private final View.OnClickListener onReviewButtonClicked = new View.OnClickListener() {
-    @Override
-    public void onClick(final View view) {
-      Intent intent = new Intent(MenuJury.this, MyReviewsActivity.class);
       intent.putExtra(LOGIN, login);
       intent.putExtra(PASSWORD, password);
       intent.putExtra(TOKEN, token);
