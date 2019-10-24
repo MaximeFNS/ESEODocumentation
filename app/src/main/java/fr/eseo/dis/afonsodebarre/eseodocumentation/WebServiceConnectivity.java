@@ -12,7 +12,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
@@ -29,10 +28,10 @@ import javax.net.ssl.TrustManagerFactory;
 
 public class WebServiceConnectivity extends AsyncTask<String, String, String> {
 
-    private Context context;
-    ProgressDialog processDialog;
+    private final Context context;
+    private ProgressDialog processDialog;
 
-    public WebServiceConnectivity(Context context){
+    protected WebServiceConnectivity(Context context){
         this.context = context;
     }
 
@@ -46,10 +45,8 @@ public class WebServiceConnectivity extends AsyncTask<String, String, String> {
 
     protected String doInBackground(String... params) {
 
-        HttpURLConnection connection = null;
         BufferedReader reader = null;
         try {
-            Log.d("newContent", "begin");
 
             InputStream in = null;
 
@@ -86,33 +83,20 @@ public class WebServiceConnectivity extends AsyncTask<String, String, String> {
                 context.init(null, tmf.getTrustManagers(), null);
 
                 // Tell the URLConnection to use a SocketFactory from our SSLContext
-
                 URL url = new URL(params[0]);
                 HttpsURLConnection urlConnection =
                         (HttpsURLConnection)url.openConnection();
                 urlConnection.setSSLSocketFactory(context.getSocketFactory());
                 in = urlConnection.getInputStream();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (KeyManagementException e) {
-                e.printStackTrace();
-            } catch (KeyStoreException e) {
-                e.printStackTrace();
-            } catch (CertificateException e) {
+            } catch (IOException | NoSuchAlgorithmException | KeyManagementException | KeyStoreException | CertificateException e) {
                 e.printStackTrace();
             }
 
-            Log.d("InputStream", in.toString());
             reader = new BufferedReader(new InputStreamReader(in));
 
-            return analyzeString(recupString(reader));
+            return analyzeString(getString(reader));
 
         } finally {
-            if (connection != null) {
-                connection.disconnect();
-            }
             try {
                 if (reader != null) {
                     reader.close();
@@ -124,7 +108,7 @@ public class WebServiceConnectivity extends AsyncTask<String, String, String> {
 
     }
 
-    protected String recupString(BufferedReader rd) {
+    private String getString(BufferedReader rd) {
         StringBuilder sb = new StringBuilder();
         String line;
 
@@ -138,11 +122,9 @@ public class WebServiceConnectivity extends AsyncTask<String, String, String> {
 
         return sb.toString();
     }
-    protected String analyzeString(String response){
-        JSONObject obj = null;
+    private String analyzeString(String response){
         try {
-            obj = new JSONObject(response);
-
+            new JSONObject(response);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -156,7 +138,6 @@ public class WebServiceConnectivity extends AsyncTask<String, String, String> {
         if (processDialog.isShowing()) {
             processDialog.dismiss();
         }
-        Log.d("postexecute","result"+result.toString());
     }
 
 }

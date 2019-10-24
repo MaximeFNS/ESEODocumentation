@@ -81,12 +81,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/bn_juryprojects"
+        android:id="@+id/bn_juryProjects"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
+        android:layout_marginStart="156dp"
         android:layout_marginTop="76dp"
-        android:text="@string/jury_button_projects"
+        android:text="@string/jury_button_grades"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="76dp"
-        android:text="@string/jury_button_grades"
+        android:text="@string/jury_button_projects"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

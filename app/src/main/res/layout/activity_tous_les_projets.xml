@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".TousLesProjetsActivity">
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/projectslist"
+        android:id="@+id/projectsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/MidnightBlue"

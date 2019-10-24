@@ -14,9 +14,6 @@ public class MenuJury extends AppCompatActivity {
 
   private static final int CONNECTION = 0;
 
-  ImageButton juryButton;
-  ImageButton projectButton;
-
   private String login, password, token;
 
   @Override
@@ -27,10 +24,10 @@ public class MenuJury extends AppCompatActivity {
     password = getIntent().getStringExtra(PASSWORD);
     token = getIntent().getStringExtra(TOKEN);
 
-    projectButton = findViewById(R.id.tousProjetsImage);
+    ImageButton projectButton = findViewById(R.id.allProjectsImage);
     projectButton.setOnClickListener(onProjetsButtonClicked);
 
-    juryButton = findViewById(R.id.pseudosjurysImage);
+    ImageButton juryButton = findViewById(R.id.juryImage);
     juryButton.setOnClickListener(onPseudosJurysButtonClicked);
 
   }

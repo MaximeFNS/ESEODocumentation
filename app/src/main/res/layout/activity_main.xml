@@ -84,6 +84,6 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ask_login"
-        app:srcCompat="@drawable/eseo_couleurs2" />
+        app:srcCompat="@drawable/eseo_colors2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

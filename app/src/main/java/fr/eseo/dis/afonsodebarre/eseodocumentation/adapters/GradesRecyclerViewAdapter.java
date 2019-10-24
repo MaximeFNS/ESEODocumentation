@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,27 +21,27 @@ import fr.eseo.dis.afonsodebarre.eseodocumentation.R;
 public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecyclerViewAdapter.GradesRecyclerViewHolder> {
 
     private final MyGradesActivity gradesActivity;
-    private static final String TAG = "GradesRecyclerViewAda";
-    private ArrayList<String> projectstitles;
-    private ArrayList<String> projectsstudents;
-    private ArrayList<String> projectsmygrades;
-    private ArrayList<String> projectsaverages;
+
+    private ArrayList<String> projectsTitles;
+    private ArrayList<String> projectsStudents;
+    private ArrayList<String> projectsMyGrades;
+    private ArrayList<String> projectsAverages;
     private ArrayList<ArrayList<String>> listNames;
-    ArrayList<String> listNamesProject = new ArrayList<>();
+    private ArrayList<String> listNamesProject = new ArrayList<>();
     private ArrayList<ArrayList<String>> listIds;
-    ArrayList<String> listIdsProject = new ArrayList<>();
+    private ArrayList<String> listIdsProject = new ArrayList<>();
 
     private ArrayList<Integer> idsProjets;
     private Integer idOfTheProject;
-    private List<Integer> expandedPositions;
+    private final List<Integer> expandedPositions;
 
     public GradesRecyclerViewAdapter(MyGradesActivity gradesActivity) {
         this.gradesActivity = gradesActivity;
 
-        projectstitles = new ArrayList<>();
-        projectsstudents = new ArrayList<>();
-        projectsmygrades = new ArrayList<>();
-        projectsaverages = new ArrayList<>();
+        projectsTitles = new ArrayList<>();
+        projectsStudents = new ArrayList<>();
+        projectsMyGrades = new ArrayList<>();
+        projectsAverages = new ArrayList<>();
         listNames = new ArrayList<>();
         listIds = new ArrayList<>();
         idsProjets = new ArrayList<>();
@@ -49,13 +49,13 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
     }
 
     public void setGrades(ArrayList<String> titles, ArrayList<String> students,
-                          ArrayList<String> mygrades, ArrayList<String> averages, ArrayList<ArrayList<String>> names,
+                          ArrayList<String> myGrades, ArrayList<String> averages, ArrayList<ArrayList<String>> names,
                           ArrayList<ArrayList<String>> ids, ArrayList<Integer> idsProjets) {
 
-        this.projectstitles = titles;
-        this.projectsstudents = students;
-        this.projectsmygrades = mygrades;
-        this.projectsaverages = averages;
+        this.projectsTitles = titles;
+        this.projectsStudents = students;
+        this.projectsMyGrades = myGrades;
+        this.projectsAverages = averages;
         listNames = names;
         listIds = ids;
         this.idsProjets = idsProjets;
@@ -72,16 +72,16 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
 
     @Override
     public int getItemCount() {
-        return projectstitles.size();
+        return projectsTitles.size();
     }
 
     @Override
     public void onBindViewHolder(@NonNull final GradesRecyclerViewHolder holder, final int position) {
 
-        holder.projecttogradetitle.setText(projectstitles.get(position));
-        holder.students.setText(projectsstudents.get(position));
-        holder.grades.setText(projectsmygrades.get(position));
-        holder.averages.setText(projectsaverages.get(position));
+        holder.projectToGradeTitle.setText(projectsTitles.get(position));
+        holder.students.setText(projectsStudents.get(position));
+        holder.grades.setText(projectsMyGrades.get(position));
+        holder.averages.setText(projectsAverages.get(position));
 
         if(expandedPositions.contains(position)){
             holder.np1.setVisibility(View.VISIBLE);
@@ -122,7 +122,7 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
 
     class GradesRecyclerViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView projecttogradetitle;
+        private final TextView projectToGradeTitle;
         private final TextView students;
         private final TextView grades;
         private final TextView averages;
@@ -130,8 +130,8 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
         private final NumberPicker np2;
         private final Button button;
 
-        public void Majnp2 (int taille){
-            np2.setMaxValue(taille);
+        private void Majnp2 (int size){
+            np2.setMaxValue(size);
             String[] valuesNames = new String[listNamesProject.size()];
             for(int s = 0; s<listNamesProject.size();s++){
                 valuesNames[s] = listNamesProject.get(s);
@@ -139,21 +139,21 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
             np2.setDisplayedValues(valuesNames);
         }
 
-        public GradesRecyclerViewHolder(@NonNull View itemView) {
+        private GradesRecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            projecttogradetitle = itemView.findViewById(R.id.projecttograde_title);
+            projectToGradeTitle = itemView.findViewById(R.id.projectToGrade_title);
             students = itemView.findViewById(R.id.students);
-            grades = itemView.findViewById(R.id.mygrades);
+            grades = itemView.findViewById(R.id.myGrades);
             averages = itemView.findViewById(R.id.averages);
-            button = itemView.findViewById(R.id.buttonValider);
+            button = itemView.findViewById(R.id.buttonAddGrade);
 
-            np1 = (NumberPicker) itemView.findViewById(R.id.numberpickernote);
+            np1 = itemView.findViewById(R.id.numberPickerNote);
             np1.setMinValue(0);
             np1.setMaxValue(20);
             np1.setWrapSelectorWheel(true);
 
-            np2 = (NumberPicker) itemView.findViewById(R.id.numberpickeretu);
+            np2 = itemView.findViewById(R.id.numberPickerStudent);
             np2.setMinValue(1);
             np2.setMaxValue(1);
             np2.setWrapSelectorWheel(true);

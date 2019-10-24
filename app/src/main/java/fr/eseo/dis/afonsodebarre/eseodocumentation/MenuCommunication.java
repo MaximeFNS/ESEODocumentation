@@ -1,7 +1,5 @@
 package fr.eseo.dis.afonsodebarre.eseodocumentation;
 
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -19,11 +17,7 @@ public class MenuCommunication extends AppCompatActivity {
 
     private static final int CONNECTION = 0;
     private String login, password, token;
-    ImageButton projectButton;
 
-    public static Intent getStartIntent(final Context ctx) {
-        return new Intent(ctx, MenuCommunication.class);
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +26,7 @@ public class MenuCommunication extends AppCompatActivity {
         password = getIntent().getStringExtra(PASSWORD);
         token = getIntent().getStringExtra(TOKEN);
 
-        projectButton = findViewById(R.id.tousProjetsImage);
+        ImageButton projectButton = findViewById(R.id.allProjectsImage);
         projectButton.setOnClickListener(onProjetsButtonClicked);
 
     }

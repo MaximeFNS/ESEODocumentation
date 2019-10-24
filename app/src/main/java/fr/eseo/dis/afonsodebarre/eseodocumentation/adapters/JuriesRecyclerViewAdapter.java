@@ -1,6 +1,7 @@
 package fr.eseo.dis.afonsodebarre.eseodocumentation.adapters;
 
-import android.util.Log;
+import android.annotation.SuppressLint;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,7 @@ import java.util.List;
 
 import fr.eseo.dis.afonsodebarre.eseodocumentation.MyJurysActivity;
 import fr.eseo.dis.afonsodebarre.eseodocumentation.R;
-import fr.eseo.dis.afonsodebarre.eseodocumentation.TousLesProjetsActivity;
 
-import static android.content.ContentValues.TAG;
 
 public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecyclerViewAdapter.JuriesRecyclerViewHolder> {
 
@@ -27,11 +26,11 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
     private List<String> juriesDates;
     private List<String> juriesMembers;
     private List<String> juriesTitles;
-    private ArrayList<ArrayList<String>> projectstitles;
+    private ArrayList<ArrayList<String>> projectsTitles;
     private ArrayList<ArrayList<String>> infosClicks;
 
 
-    private List<Integer> expandedPositions;
+    private final List<Integer> expandedPositions;
 
     public JuriesRecyclerViewAdapter(MyJurysActivity juriesActivity) {
         this.juriesActivity = juriesActivity;
@@ -40,7 +39,7 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
         juriesDates = new ArrayList<>();
         juriesMembers = new ArrayList<>();
         juriesTitles = new ArrayList<>();
-        projectstitles = new ArrayList<>();
+        projectsTitles = new ArrayList<>();
         infosClicks = new ArrayList<>();
         expandedPositions = new ArrayList<>();
     }
@@ -52,7 +51,7 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
         this.juriesDates = juriesDates;
         this.juriesMembers = juriesMembers;
         this.juriesTitles = juriesTitles;
-        this.projectstitles = titles;
+        this.projectsTitles = titles;
         this.infosClicks = infosClick;
         notifyDataSetChanged();
     }
@@ -65,6 +64,7 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
         return new JuriesRecyclerViewHolder(juriesView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final JuriesRecyclerViewHolder holder, final int position) {
         holder.juryTitle.setText("Jury n°" + (position + 1));
@@ -85,7 +85,7 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
             @Override
             public boolean onLongClick(View view) {
                 if(holder.juryProjects.getVisibility()==View.VISIBLE){
-                    expandedPositions.remove(new Integer(position));
+                    expandedPositions.remove(Integer.valueOf(position));
                     holder.juryProjects.setVisibility(View.GONE);
                     holder.juryMembers.setVisibility(View.GONE);
                 }
@@ -112,19 +112,17 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
         private final TextView juryDate;
         private final TextView juryMembers;
         private final TextView juryProjects;
-        private final Button seeprojects;
-        private final Button gradeprojects;
         private int positionJury;
 
-        public JuriesRecyclerViewHolder(@NonNull View itemView) {
+        private JuriesRecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
             juryTitle = itemView.findViewById(R.id.jury_title);
             juryID = itemView.findViewById(R.id.jury_id);
             juryDate = itemView.findViewById(R.id.jury_date);
             juryMembers = itemView.findViewById(R.id.juries_members);
             juryProjects = itemView.findViewById(R.id.juries_projects);
-            seeprojects = itemView.findViewById(R.id.bn_juryprojects);
-            gradeprojects = itemView.findViewById(R.id.bn_gradeprojects);
+            Button seeprojects = itemView.findViewById(R.id.bn_juryProjects);
+            Button gradeprojects = itemView.findViewById(R.id.bn_gradeprojects);
 
             seeprojects.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -137,7 +135,7 @@ public class JuriesRecyclerViewAdapter extends RecyclerView.Adapter<JuriesRecycl
             gradeprojects.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    juriesActivity.gradeProjects(infosClicks.get(positionJury), projectstitles.get(positionJury));
+                    juriesActivity.gradeProjects(infosClicks.get(positionJury), projectsTitles.get(positionJury));
                 }
             });
         }
