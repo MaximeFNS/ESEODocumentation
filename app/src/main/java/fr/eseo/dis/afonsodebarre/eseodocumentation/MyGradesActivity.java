@@ -31,9 +31,13 @@ public class MyGradesActivity extends AppCompatActivity {
     private ArrayList<String> GRADES_GIVEN = new ArrayList<>();
     private ArrayList<String> GRADES_AVERAGE = new ArrayList<>();
     private GradesRecyclerViewAdapter gradesRecyclerViewAdapter;
+    private ArrayList<Integer> idProjet = new ArrayList<>();
 
     private ArrayList<String> TEMPORARYNAMES = new ArrayList<>();
     private ArrayList<ArrayList<String>> LISTOFLISTNAMES = new ArrayList<>();
+
+    private ArrayList<String> TEMPORARYIDS = new ArrayList<>();
+    private ArrayList<ArrayList<String>> LISTOFLISTIDS = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class MyGradesActivity extends AppCompatActivity {
 
             WebServiceConnectivity wsc = new WebServiceConnectivity(this);
             wsc.execute("https://192.168.4.240/pfe/webservice.php?q=NOTES&user="+login+"&proj="+ids.get(k)+"&token="+token);
+            idProjet.add(Integer.valueOf(ids.get(k)));
 
             String resultat = null;
             try {
@@ -69,10 +74,13 @@ public class MyGradesActivity extends AppCompatActivity {
                             myg.add(gradeObject.getString("mynote")+ "\n");
                             avg.add(gradeObject.getString("avgNote")+ "\n");
                             TEMPORARYNAMES.add(gradeObject.getString("forename") + " " + gradeObject.getString("surname"));
+                            TEMPORARYIDS.add(gradeObject.getString("userId"));
 
                     }
                     LISTOFLISTNAMES.add(TEMPORARYNAMES);
+                    LISTOFLISTIDS.add(TEMPORARYIDS);
                     TEMPORARYNAMES = new ArrayList<>();
+                    TEMPORARYIDS = new ArrayList<>();
                     for(int ielev = 0; ielev<eleves.size();ielev++){
                         eleve = eleve + eleves.get(ielev);
                         allmyg = allmyg + myg.get(ielev);
@@ -100,6 +108,15 @@ public class MyGradesActivity extends AppCompatActivity {
         gradesRecycler.setLayoutManager(llm);
         gradesRecyclerViewAdapter = new GradesRecyclerViewAdapter(this);
         gradesRecycler.setAdapter(gradesRecyclerViewAdapter);
-        gradesRecyclerViewAdapter.setGrades(titles, GRADES_STUDENTS, GRADES_GIVEN, GRADES_AVERAGE, LISTOFLISTNAMES);
+        gradesRecyclerViewAdapter.setGrades(titles, GRADES_STUDENTS, GRADES_GIVEN, GRADES_AVERAGE, LISTOFLISTNAMES, LISTOFLISTIDS, idProjet);
+    }
+
+    public void sendNote(int idStudent, int note, int idProject){
+        WebServiceConnectivity wsc = new WebServiceConnectivity(this);
+        wsc.execute("https://192.168.4.240/pfe/webservice.php?q=NEWNT&user="+login+"&proj="+idProject+
+                "&student="+idStudent+"&note="+note+"&token="+token);
+
+        finish();
+        startActivity(getIntent());
     }
 }

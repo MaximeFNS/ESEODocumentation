@@ -28,8 +28,11 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
     private ArrayList<String> projectsaverages;
     private ArrayList<ArrayList<String>> listNames;
     ArrayList<String> listNamesProject = new ArrayList<>();
+    private ArrayList<ArrayList<String>> listIds;
+    ArrayList<String> listIdsProject = new ArrayList<>();
 
-
+    private ArrayList<Integer> idsProjets;
+    private Integer idOfTheProject;
     private List<Integer> expandedPositions;
 
     public GradesRecyclerViewAdapter(MyGradesActivity gradesActivity) {
@@ -40,17 +43,22 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
         projectsmygrades = new ArrayList<>();
         projectsaverages = new ArrayList<>();
         listNames = new ArrayList<>();
+        listIds = new ArrayList<>();
+        idsProjets = new ArrayList<>();
         expandedPositions = new ArrayList<>();
     }
 
     public void setGrades(ArrayList<String> titles, ArrayList<String> students,
-                          ArrayList<String> mygrades, ArrayList<String> averages, ArrayList<ArrayList<String>> names) {
+                          ArrayList<String> mygrades, ArrayList<String> averages, ArrayList<ArrayList<String>> names,
+                          ArrayList<ArrayList<String>> ids, ArrayList<Integer> idsProjets) {
 
         this.projectstitles = titles;
         this.projectsstudents = students;
         this.projectsmygrades = mygrades;
         this.projectsaverages = averages;
         listNames = names;
+        listIds = ids;
+        this.idsProjets = idsProjets;
         notifyDataSetChanged();
     }
 
@@ -98,6 +106,9 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
                 else{
                     expandedPositions.add(position);
                     listNamesProject = listNames.get(position);
+                    listIdsProject = listIds.get(position);
+                    idOfTheProject = idsProjets.get(position);
+
                     holder.Majnp2(listNamesProject.size());
                     holder.np1.setVisibility(View.VISIBLE);
                     holder.np2.setVisibility(View.VISIBLE);
@@ -148,6 +159,7 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
             np2.setWrapSelectorWheel(true);
 
             final int[] incetu = new int[2];
+            incetu[1] = 1;
             np1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @SuppressLint("LongLogTag")
                 @Override
@@ -164,12 +176,11 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
                 }
             });
 
-            Log.e(TAG, "incetu: " + incetu[0] + " " + incetu[1]);
-
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.e(TAG, "incetu: " + incetu[0] + " " + incetu[1]);
+
+                    gradesActivity.sendNote(Integer.valueOf(listIdsProject.get(incetu[1]-1)), incetu[0], idOfTheProject);
                 }
             });
 
