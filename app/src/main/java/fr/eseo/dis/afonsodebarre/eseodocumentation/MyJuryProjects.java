@@ -31,18 +31,17 @@ import static fr.eseo.dis.afonsodebarre.eseodocumentation.TousLesProjetsActivity
 import static fr.eseo.dis.afonsodebarre.eseodocumentation.TousLesProjetsActivity.TITLE;
 
 public class MyJuryProjects extends AppCompatActivity {
-    private static final String TAG = "TAG";
+
     private String login, token;
     private ArrayList<String> idprojects;
-    public List<String> PROJECTS_TITLE = new ArrayList<>();
-    public List<String> PROJECTS_ID = new ArrayList<>();
-    public List<String> PROJECTS_CONFID = new ArrayList<>();
-    public List<String> PROJECTS_DESCRIPTION = new ArrayList<>();
-    public List<String> PROJECTS_SUPERVISOR= new ArrayList<>();
-    public List<String> PROJECTS_POSTER= new ArrayList<>();
-    public List<String> PROJECTS_STUDENTS = new ArrayList<>();
+    private final List<String> PROJECTS_TITLE = new ArrayList<>();
+    private final List<String> PROJECTS_ID = new ArrayList<>();
+    private final List<String> PROJECTS_CONFID = new ArrayList<>();
+    private final List<String> PROJECTS_DESCRIPTION = new ArrayList<>();
+    private final List<String> PROJECTS_SUPERVISOR= new ArrayList<>();
+    private final List<String> PROJECTS_POSTER= new ArrayList<>();
+    private final List<String> PROJECTS_STUDENTS = new ArrayList<>();
     private static final int CONNECTION = 0;
-    private ProjectsRecyclerViewAdapter projectsRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,33 +52,28 @@ public class MyJuryProjects extends AppCompatActivity {
         token = getIntent().getStringExtra(TOKEN);
         idprojects = getIntent().getStringArrayListExtra(IDJURYPROJECTS);
 
-        RecyclerView projectsRecycler = (RecyclerView)findViewById(R.id.projectslist);
+        RecyclerView projectsRecycler = findViewById(R.id.projectsList);
         projectsRecycler.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(RecyclerView.VERTICAL);
         projectsRecycler.setLayoutManager(llm);
-        projectsRecyclerViewAdapter = new ProjectsRecyclerViewAdapter(this);
+        ProjectsRecyclerViewAdapter projectsRecyclerViewAdapter = new ProjectsRecyclerViewAdapter(this);
         projectsRecycler.setAdapter(projectsRecyclerViewAdapter);
         importProjects();
         projectsRecyclerViewAdapter.setProjects(PROJECTS_TITLE,PROJECTS_DESCRIPTION,PROJECTS_CONFID,PROJECTS_ID,PROJECTS_POSTER,PROJECTS_STUDENTS,PROJECTS_SUPERVISOR);
-        Log.d(TAG, "onMJP: " +idprojects.toString() );
     }
 
     private void importProjects() {
 
         WebServiceConnectivity wsc = new WebServiceConnectivity(this);
-        Log.d("Lancement ", "ok");
         wsc.execute("https://192.168.4.240/pfe/webservice.php?q=LIPRJ&user=" + login + "&token=" + token);
-        Log.d("Execution ","ok");
 
         try {
-            String resultat = wsc.get();
-            JSONObject jObject = new JSONObject(resultat);
+            String result = wsc.get();
+            JSONObject jObject = new JSONObject(result);
             String resultString = jObject.getString("result");
-            Log.d("ResultString ",resultString);
+
             if (resultString.equals("OK")) {
-                Log.d("ResultString ","ok");
-                Log.d("NombreDeProjets",Integer.toString(jObject.getJSONArray("projects").length()));
 
                 for (int i = 0; i < jObject.getJSONArray("projects").length(); i++){
                     JSONArray arrayProjects = jObject.getJSONArray("projects");
@@ -112,18 +106,10 @@ public class MyJuryProjects extends AppCompatActivity {
                     }
                 }
 
-            } else {
-
             }
 
-        } catch (ExecutionException e) {
+        } catch (ExecutionException | InterruptedException | JSONException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-
-
         }
     }
 

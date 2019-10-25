@@ -1,6 +1,7 @@
 package fr.eseo.dis.afonsodebarre.eseodocumentation;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,18 +13,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.concurrent.ExecutionException;
 
 import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.LOGIN;
-import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.PASSWORD;
+
 import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.TOKEN;
 import static fr.eseo.dis.afonsodebarre.eseodocumentation.TousLesProjetsActivity.CONFID;
 import static fr.eseo.dis.afonsodebarre.eseodocumentation.TousLesProjetsActivity.DESCRPIP;
@@ -35,14 +31,14 @@ import static fr.eseo.dis.afonsodebarre.eseodocumentation.TousLesProjetsActivity
 
 public class ProjectDetailsActivity extends AppCompatActivity {
 
+    private String login;
+    private String token;
+    private String idProjet;
 
-
-    private String login, token, idProjet, title, confid, description, emplacementPoster, supervisor,students;
-    private Bitmap imageString;
-    public static final String IMAGE = "IMAGE";
     private static final String TAG = "TAG";
     private static final int CONNECTION = 0;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,53 +46,51 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         login = getIntent().getStringExtra(LOGIN);
         token = getIntent().getStringExtra(TOKEN);
         idProjet = getIntent().getStringExtra(IDPROJET);
-        confid = getIntent().getStringExtra(CONFID);
-        title = getIntent().getStringExtra(TITLE);
-        description = getIntent().getStringExtra(DESCRPIP);
-        emplacementPoster = getIntent().getStringExtra(EMP);
-        students = getIntent().getStringExtra(STUDENTS);
-        supervisor = getIntent().getStringExtra(SUPERVISOR);
+        String confid = getIntent().getStringExtra(CONFID);
+        String title = getIntent().getStringExtra(TITLE);
+        String description = getIntent().getStringExtra(DESCRPIP);
+        String emplacementPoster = getIntent().getStringExtra(EMP);
+        String students = getIntent().getStringExtra(STUDENTS);
+        String supervisor = getIntent().getStringExtra(SUPERVISOR);
         Log.d(TAG, "Details: " + idProjet);
 
         WebServiceConnectivity wsc = new WebServiceConnectivity(this);
         wsc.execute("https://192.168.4.240/pfe/webservice.php?q=POSTR&user="+login+"&proj="+idProjet+"&style=FLB64&token="+token);
-        String resultat = "";
+        String result = "";
         try {
-            resultat = wsc.get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+            result = wsc.get();
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         Log.d(TAG, "Poster: " + login + token);
-        byte[] decodedString = Base64.decode(resultat, Base64.DEFAULT);
+        byte[] decodedString = Base64.decode(result, Base64.DEFAULT);
         final Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        ImageView poster = (ImageView) findViewById(R.id.poster);
-        imageString = decodedByte;
+        ImageView poster = findViewById(R.id.poster);
+
         poster.setImageBitmap(decodedByte);
         poster.setOnClickListener(onPosterClicked);
 
-        Button retour = (Button) findViewById(R.id.bn_details);
-        retour.setOnClickListener(onReturnButtonClicked);
+        Button returnToProjects = findViewById(R.id.bn_details);
+        returnToProjects.setOnClickListener(onReturnButtonClicked);
 
-        Button map = (Button) findViewById(R.id.map_button);
+        Button map = findViewById(R.id.map_button);
         map.setOnClickListener(onMapButtonClicked);
 
-        TextView detailsTitle = (TextView)findViewById(R.id.details_titre) ;
-        TextView detailsEmplacament=(TextView)findViewById(R.id.details_emplacement) ;
-        TextView detailsSupervisor=(TextView)findViewById(R.id.details_supervisor) ;
-        TextView detailsDescLabel=(TextView)findViewById(R.id.details_desc_label) ;
-        TextView detailsDescription=(TextView)findViewById(R.id.details_description) ;
-        TextView detailsConfid=(TextView)findViewById(R.id.details_confid) ;
-        TextView detailsStudentsLabel=(TextView)findViewById(R.id.details_students) ;
-        TextView detailsStudents=(TextView)findViewById(R.id.rv_details_students) ;
+        TextView detailsTitle = findViewById(R.id.details_titre) ;
+        TextView detailsEmplacament= findViewById(R.id.details_emplacement) ;
+        TextView detailsSupervisor= findViewById(R.id.details_supervisor) ;
+        TextView detailsDescLabel= findViewById(R.id.details_desc_label) ;
+        TextView detailsDescription= findViewById(R.id.details_description) ;
+        TextView detailsConfid= findViewById(R.id.details_confid) ;
+        TextView detailsStudentsLabel= findViewById(R.id.details_students) ;
+        TextView detailsStudents= findViewById(R.id.rv_details_students) ;
         detailsTitle.setText(title);
-        detailsConfid.setText("Confidentialité : "+confid);
+        detailsConfid.setText("Confidentiality : "+ confid);
         detailsDescLabel.setText("Description : ");
         detailsDescription.setText(description);
-        detailsEmplacament.setText("Emplacement du poster: "+emplacementPoster);
-        detailsStudentsLabel.setText("Etudiants :");
-        detailsSupervisor.setText("Porteur : "+supervisor);
+        detailsEmplacament.setText("Emplacement du poster: "+ emplacementPoster);
+        detailsStudentsLabel.setText("Students :");
+        detailsSupervisor.setText("Holder : "+ supervisor);
         detailsStudents.setText(students);
 
 

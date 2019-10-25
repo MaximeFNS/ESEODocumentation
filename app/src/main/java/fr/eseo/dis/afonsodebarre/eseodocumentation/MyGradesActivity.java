@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,17 +22,17 @@ import  static fr.eseo.dis.afonsodebarre.eseodocumentation.MyJurysActivity.JURIE
 import  static fr.eseo.dis.afonsodebarre.eseodocumentation.MyJurysActivity.IDJURYPROJECTS;
 public class MyGradesActivity extends AppCompatActivity {
 
-    private static final int CONNECTION = 0;
-    private static final String TAG = "MyGradesActivity";
     private String login, token;
-    private ArrayList<String> titles, ids;
-    private ArrayList<String> GRADES_STUDENTS = new ArrayList<>();
-    private ArrayList<String> GRADES_GIVEN = new ArrayList<>();
-    private ArrayList<String> GRADES_AVERAGE = new ArrayList<>();
-    private GradesRecyclerViewAdapter gradesRecyclerViewAdapter;
+    private final ArrayList<String> GRADES_STUDENTS = new ArrayList<>();
+    private final ArrayList<String> GRADES_GIVEN = new ArrayList<>();
+    private final ArrayList<String> GRADES_AVERAGE = new ArrayList<>();
+    private final ArrayList<Integer> idProjet = new ArrayList<>();
 
     private ArrayList<String> TEMPORARYNAMES = new ArrayList<>();
-    private ArrayList<ArrayList<String>> LISTOFLISTNAMES = new ArrayList<>();
+    private final ArrayList<ArrayList<String>> LISTOFLISTNAMES = new ArrayList<>();
+
+    private ArrayList<String> TEMPORARYIDS = new ArrayList<>();
+    private final ArrayList<ArrayList<String>> LISTOFLISTIDS = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,65 +40,74 @@ public class MyGradesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_grades);
         login = getIntent().getStringExtra(LOGIN);
         token = getIntent().getStringExtra(TOKEN);
-        titles = getIntent().getStringArrayListExtra(JURIESTITLES);
-        ids = getIntent().getStringArrayListExtra(IDJURYPROJECTS);
-        for(int k=0; k<ids.size();k++){
+        ArrayList<String> titles = getIntent().getStringArrayListExtra(JURIESTITLES);
+        ArrayList<String> ids = getIntent().getStringArrayListExtra(IDJURYPROJECTS);
+        for(int k = 0; k< ids.size(); k++){
 
             WebServiceConnectivity wsc = new WebServiceConnectivity(this);
-            wsc.execute("https://192.168.4.240/pfe/webservice.php?q=NOTES&user="+login+"&proj="+ids.get(k)+"&token="+token);
+            wsc.execute("https://192.168.4.240/pfe/webservice.php?q=NOTES&user="+login+"&proj="+ ids.get(k)+"&token="+token);
+            idProjet.add(Integer.valueOf(ids.get(k)));
 
-            String resultat = null;
+            String result;
             try {
-                resultat = wsc.get();
-                JSONObject jObject = new JSONObject(resultat);
+                result = wsc.get();
+                JSONObject jObject = new JSONObject(result);
                 String resultString = jObject.getString("result");
                 if (resultString.equals("OK")) {
                     int sizeGrades = jObject.getJSONArray("notes").length();
                     JSONArray arrayGrades = jObject.getJSONArray("notes");
-                    ArrayList<String> eleves = new ArrayList<>();
+                    ArrayList<String> students = new ArrayList<>();
                     ArrayList<String> myg = new ArrayList<>();
                     ArrayList<String> avg = new ArrayList<>();
-                    String eleve = "";
-                    String allmyg = "";
-                    String allavg = "";
+                    StringBuilder eleve = new StringBuilder();
+                    StringBuilder allmyg = new StringBuilder();
+                    StringBuilder allavg = new StringBuilder();
                     for (int i = 0; i < sizeGrades; i++){
 
                             JSONObject gradeObject = arrayGrades.getJSONObject(i);
-                            eleves.add(gradeObject.getString("forename") + " " + gradeObject.getString("surname") + "\n");
+                            students.add(gradeObject.getString("forename") + " " + gradeObject.getString("surname") + "\n");
                             myg.add(gradeObject.getString("mynote")+ "\n");
                             avg.add(gradeObject.getString("avgNote")+ "\n");
                             TEMPORARYNAMES.add(gradeObject.getString("forename") + " " + gradeObject.getString("surname"));
+                            TEMPORARYIDS.add(gradeObject.getString("userId"));
 
                     }
                     LISTOFLISTNAMES.add(TEMPORARYNAMES);
+                    LISTOFLISTIDS.add(TEMPORARYIDS);
                     TEMPORARYNAMES = new ArrayList<>();
-                    for(int ielev = 0; ielev<eleves.size();ielev++){
-                        eleve = eleve + eleves.get(ielev);
-                        allmyg = allmyg + myg.get(ielev);
-                        allavg = allavg + avg.get(ielev);
+                    TEMPORARYIDS = new ArrayList<>();
+                    for(int index = 0; index<students.size();index++){
+                        eleve.append(students.get(index));
+                        allmyg.append(myg.get(index));
+                        allavg.append(avg.get(index));
                     }
-                    GRADES_STUDENTS.add(eleve);
-                    GRADES_GIVEN.add(allmyg);
-                    GRADES_AVERAGE.add(allavg);
+                    GRADES_STUDENTS.add(eleve.toString());
+                    GRADES_GIVEN.add(allmyg.toString());
+                    GRADES_AVERAGE.add(allavg.toString());
 
                 }
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+            } catch (ExecutionException | InterruptedException | JSONException e) {
                 e.printStackTrace();
             }
 
         }
 
-        RecyclerView gradesRecycler = (RecyclerView)findViewById(R.id.gradeslist);
+        RecyclerView gradesRecycler = findViewById(R.id.gradesList);
         gradesRecycler.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(RecyclerView.VERTICAL);
         gradesRecycler.setLayoutManager(llm);
-        gradesRecyclerViewAdapter = new GradesRecyclerViewAdapter(this);
+        GradesRecyclerViewAdapter gradesRecyclerViewAdapter = new GradesRecyclerViewAdapter(this);
         gradesRecycler.setAdapter(gradesRecyclerViewAdapter);
-        gradesRecyclerViewAdapter.setGrades(titles, GRADES_STUDENTS, GRADES_GIVEN, GRADES_AVERAGE, LISTOFLISTNAMES);
+        gradesRecyclerViewAdapter.setGrades(titles, GRADES_STUDENTS, GRADES_GIVEN, GRADES_AVERAGE, LISTOFLISTNAMES, LISTOFLISTIDS, idProjet);
+    }
+
+    public void sendNote(int idStudent, int note, int idProject){
+        WebServiceConnectivity wsc = new WebServiceConnectivity(this);
+        wsc.execute("https://192.168.4.240/pfe/webservice.php?q=NEWNT&user="+login+"&proj="+idProject+
+                "&student="+idStudent+"&note="+note+"&token="+token);
+
+        finish();
+        startActivity(getIntent());
     }
 }

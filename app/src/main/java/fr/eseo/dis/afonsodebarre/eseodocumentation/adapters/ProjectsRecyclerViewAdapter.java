@@ -3,6 +3,7 @@ package fr.eseo.dis.afonsodebarre.eseodocumentation.adapters;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,7 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
     private TousLesProjetsActivity projetsActivity;
     private MyJuryProjects myJuryProjects;
 
-    private List<Integer> expandedPositions;
+    private final List<Integer> expandedPositions;
 
     private List<String> projects_title;
     private List<String> projects_id;
@@ -32,8 +33,8 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
     private List<String> projects_poster_emplacement;
     private List<String> projects_students;
     private List<String> projects_supervisor;
-    private boolean inallProjects = false;
-    private boolean inmyjuryprojects = false;
+    private boolean inAllProjects = false;
+    private boolean inMyJuryProjects = false;
 
 
     public ProjectsRecyclerViewAdapter(TousLesProjetsActivity projetsActivity) {
@@ -46,7 +47,7 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
         projects_poster_emplacement = new ArrayList<>();
         projects_students = new ArrayList<>();
         projects_supervisor = new ArrayList<>();
-        inallProjects = true;
+        inAllProjects = true;
         expandedPositions = new ArrayList<>();
     }
 
@@ -63,7 +64,7 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
         projects_poster_emplacement = new ArrayList<>();
         projects_students = new ArrayList<>();
         projects_supervisor = new ArrayList<>();
-        inmyjuryprojects = true;
+        inMyJuryProjects = true;
         expandedPositions = new ArrayList<>();
     }
 
@@ -88,6 +89,7 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
         return new ProjectsRecyclerViewHolder(projectView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final ProjectsRecyclerViewHolder holder, final int position) {
 
@@ -107,7 +109,7 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
             @Override
             public boolean onLongClick(View view) {
                 if(holder.projectResume.getVisibility()==View.VISIBLE){
-                    expandedPositions.remove(new Integer(position));
+                    expandedPositions.remove(Integer.valueOf(position));
                     holder.projectResume.setVisibility(View.GONE);
                     holder.projectDescriptionLabel.setVisibility(View.GONE);
                 }
@@ -120,20 +122,20 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
-            String id = projects_id.get(position);
-            String title = projects_title.get(position);
-            String description = projects_description.get(position);
-            String confid = projects_confid.get(position);
-            String students = projects_students.get(position);
-            String supervisor = projects_supervisor.get(position);
-            String emplacementPoster = projects_poster_emplacement.get(position);
+            final String id = projects_id.get(position);
+            final String title = projects_title.get(position);
+            final String description = projects_description.get(position);
+            final String confid = projects_confid.get(position);
+            final String students = projects_students.get(position);
+            final String supervisor = projects_supervisor.get(position);
+            final String emplacementPoster = projects_poster_emplacement.get(position);
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "IDProjet : " + id);
-                if(inallProjects){
+                if(inAllProjects){
                     projetsActivity.viewDetails(id,emplacementPoster,title,description,confid,supervisor,students);
                 }
-                if(inmyjuryprojects){
+                if(inMyJuryProjects){
                     myJuryProjects.viewDetails(id,emplacementPoster,title,description,confid,supervisor,students);
                 }
 
@@ -154,7 +156,7 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
         private final TextView projectResume;
         private final TextView projectDescriptionLabel;
 
-        public ProjectsRecyclerViewHolder(@NonNull View itemView) {
+        private ProjectsRecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
             projectTitle = itemView.findViewById(R.id.project_titre);
 

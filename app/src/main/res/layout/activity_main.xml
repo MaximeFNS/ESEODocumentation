@@ -22,9 +22,10 @@
         android:id="@+id/ask_login"
         android:layout_width="341dp"
         android:layout_height="45dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="36dp"
+        android:contentDescription="@string/introduction"
         android:fontFamily="@font/roboto_thin"
         android:text="@string/ask_login"
         android:textSize="20sp"
@@ -40,31 +41,37 @@
         android:id="@+id/user_login"
         android:layout_width="345dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="236dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/border"
+        android:contentDescription="@string/user_login"
         android:ems="10"
         android:hint="@string/hint_login"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAutofill="no"
+        tools:ignore="ContentDescription" />
 
     <EditText
         android:id="@+id/user_password"
         android:layout_width="345dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="304dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/border"
+        android:contentDescription="@string/user_password"
         android:ems="10"
         android:hint="@string/hint_password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAutofill="no"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -72,10 +79,11 @@
         android:layout_height="155dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:contentDescription="@string/logo_eseo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ask_login"
-        app:srcCompat="@drawable/eseo_couleurs2" />
+        app:srcCompat="@drawable/eseo_colors2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

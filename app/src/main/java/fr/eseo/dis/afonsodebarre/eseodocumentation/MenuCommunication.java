@@ -1,7 +1,5 @@
 package fr.eseo.dis.afonsodebarre.eseodocumentation;
 
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,16 +15,9 @@ import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.TOKEN;
 
 public class MenuCommunication extends AppCompatActivity {
 
-    private static final String TAG = "TAG";
     private static final int CONNECTION = 0;
     private String login, password, token;
-    ImageButton projectButton;
-    ImageButton juryButton;
-    private Context context = this;
 
-    public static Intent getStartIntent(final Context ctx) {
-        return new Intent(ctx, MenuCommunication.class);
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +26,8 @@ public class MenuCommunication extends AppCompatActivity {
         password = getIntent().getStringExtra(PASSWORD);
         token = getIntent().getStringExtra(TOKEN);
 
-        projectButton = findViewById(R.id.tousProjetsImage);
+        ImageButton projectButton = findViewById(R.id.allProjectsImage);
         projectButton.setOnClickListener(onProjetsButtonClicked);
-
-        juryButton = findViewById(R.id.pseudosjurysImage);
-        juryButton.setOnClickListener(onPseudosJurysButtonClicked);
 
     }
 
@@ -50,15 +38,6 @@ public class MenuCommunication extends AppCompatActivity {
             intent.putExtra(LOGIN, login);
             intent.putExtra(PASSWORD, password);
             intent.putExtra(TOKEN, token);
-            startActivityForResult(intent,CONNECTION);
-
-        }
-    };
-
-    private final View.OnClickListener onPseudosJurysButtonClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(final View view) {
-            Intent intent = new Intent(MenuCommunication.this, PseudosJurysActivity.class);
             startActivityForResult(intent,CONNECTION);
 
         }

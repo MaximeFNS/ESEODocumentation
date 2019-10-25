@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/projecttograde_title"
+            android:id="@+id/projectToGrade_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -21,7 +21,7 @@
             android:layout_marginEnd="16dp"
             android:maxLines="2"
             android:minLines="2"
-            android:text="test"
+            android:text="@string/details_title"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -36,18 +36,18 @@
             android:layout_height="102dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="104dp"
-            android:text="test"
+            android:text="@string/details_students"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/mygrades"
+            android:id="@+id/myGrades"
             android:layout_width="78dp"
             android:layout_height="99dp"
             android:layout_marginStart="176dp"
             android:layout_marginTop="104dp"
-            android:text="test"
+            android:text="@string/grades_mine"
             android:textAlignment="center"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
             android:layout_height="99dp"
             android:layout_marginStart="304dp"
             android:layout_marginTop="104dp"
-            android:text="test"
+            android:text="@string/grades_average"
             android:textAlignment="center"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="76dp"
-            android:text="Student"
+            android:text="@string/grades_students"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="176dp"
             android:layout_marginTop="76dp"
-            android:text="My Grade"
+            android:text="@string/grades_mine"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -95,18 +95,18 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="305dp"
             android:layout_marginTop="75dp"
-            android:text="Average"
+            android:text="@string/grades_average"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/Nouvelle_note"
+            android:id="@+id/New_note"
             android:layout_width="393dp"
             android:layout_height="23dp"
             android:layout_marginTop="212dp"
-            android:text="Nouvelle note : "
+            android:text="@string/grades_new"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -114,7 +114,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <NumberPicker
-            android:id="@+id/numberpickeretu"
+            android:id="@+id/numberPickerStudent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="72dp"
@@ -123,10 +123,10 @@
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/Nouvelle_note" />
+            app:layout_constraintTop_toTopOf="@+id/New_note" />
 
         <NumberPicker
-            android:id="@+id/numberpickernote"
+            android:id="@+id/numberPickerNote"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -135,24 +135,24 @@
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/Nouvelle_note" />
+            app:layout_constraintTop_toTopOf="@+id/New_note" />
 
         <Button
-            android:id="@+id/buttonValider"
+            android:id="@+id/buttonAddGrade"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="170dp"
             android:layout_marginEnd="136dp"
             android:layout_marginStart="136dp"
             android:layout_marginBottom="16dp"
-            android:text="Add grade"
+            android:text="@string/grades_button"
             android:visibility="gone"
             tools:layout_editor_absoluteX="104dp"
             tools:layout_editor_absoluteY="115dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/numberpickernote"/>
+            app:layout_constraintTop_toTopOf="@+id/numberPickerNote"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
