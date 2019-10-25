@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.eseo.dis.afonsodebarre.eseodocumentation">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".adapters.GradesRecyclerViewAdapter"></activity>
-        <activity android:name=".MapActivity"/>
+        <activity android:name=".AnnotationActivity"></activity>
+        <activity android:name=".adapters.GradesRecyclerViewAdapter" />
+        <activity android:name=".MapActivity" />
         <activity android:name=".MyJuryProjects" />
         <activity android:name=".PosterActivity" />
         <activity android:name=".ProjectDetailsActivity" />
@@ -36,5 +35,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
