@@ -26,6 +26,9 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 
+/**
+ * WebServiceConnectivity is the class that allows to use the web services
+ */
 public class WebServiceConnectivity extends AsyncTask<String, String, String> {
 
     private final Context context;

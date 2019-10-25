@@ -10,33 +10,42 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.LOGIN;
-import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.PASSWORD;
 import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.TOKEN;
 
+/**
+ * MenuCommunication is the menu of the members of communication
+ */
 public class MenuCommunication extends AppCompatActivity {
 
     private static final int CONNECTION = 0;
-    private String login, password, token;
+    private String login, token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_comm_main);
+        /*
+        Get the token & the login of the user
+         */
         login = getIntent().getStringExtra(LOGIN);
-        password = getIntent().getStringExtra(PASSWORD);
         token = getIntent().getStringExtra(TOKEN);
 
+        /*
+        Display the imageButton of projects
+         */
         ImageButton projectButton = findViewById(R.id.allProjectsImage);
         projectButton.setOnClickListener(onProjetsButtonClicked);
 
     }
 
+    /**
+     * If the image Button for projects is selected, the user is directed to TousLesProjetsActivity
+     */
     private final View.OnClickListener onProjetsButtonClicked = new View.OnClickListener() {
         @Override
         public void onClick(final View view) {
             Intent intent = new Intent(MenuCommunication.this, TousLesProjetsActivity.class);
             intent.putExtra(LOGIN, login);
-            intent.putExtra(PASSWORD, password);
             intent.putExtra(TOKEN, token);
             startActivityForResult(intent,CONNECTION);
 

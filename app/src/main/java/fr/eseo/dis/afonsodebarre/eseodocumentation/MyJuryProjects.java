@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +29,9 @@ import static fr.eseo.dis.afonsodebarre.eseodocumentation.TousLesProjetsActivity
 import static fr.eseo.dis.afonsodebarre.eseodocumentation.TousLesProjetsActivity.SUPERVISOR;
 import static fr.eseo.dis.afonsodebarre.eseodocumentation.TousLesProjetsActivity.TITLE;
 
+/**
+ * MyJuryProjects is the activity who displays the projected the projects of a selected jury
+ */
 public class MyJuryProjects extends AppCompatActivity {
 
     private String login, token;
@@ -52,6 +54,9 @@ public class MyJuryProjects extends AppCompatActivity {
         token = getIntent().getStringExtra(TOKEN);
         idprojects = getIntent().getStringArrayListExtra(IDJURYPROJECTS);
 
+        /*
+        Initialization of the recycler view and we send the data to it
+         */
         RecyclerView projectsRecycler = findViewById(R.id.projectsList);
         projectsRecycler.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -63,8 +68,14 @@ public class MyJuryProjects extends AppCompatActivity {
         projectsRecyclerViewAdapter.setProjects(PROJECTS_TITLE,PROJECTS_DESCRIPTION,PROJECTS_CONFID,PROJECTS_ID,PROJECTS_POSTER,PROJECTS_STUDENTS,PROJECTS_SUPERVISOR);
     }
 
+    /**
+     * void importProjects() get the projects assign to a jury
+     */
     private void importProjects() {
 
+        /*
+        Use of a web service who list all projects
+         */
         WebServiceConnectivity wsc = new WebServiceConnectivity(this);
         wsc.execute("https://192.168.4.240/pfe/webservice.php?q=LIPRJ&user=" + login + "&token=" + token);
 
@@ -86,7 +97,10 @@ public class MyJuryProjects extends AppCompatActivity {
                     if (projectPosterString==null){
                         projectPosterString="";
                     }
-                    Log.d("TITRE PROJET", projectTitleString);
+
+                    /*
+                    If the project is assigned to the selected jury, the project info are added to variables
+                     */
                     if(idprojects.contains(projectIdString)){
                         PROJECTS_TITLE.add(projectTitleString);
                         PROJECTS_ID.add(projectIdString);
@@ -113,6 +127,16 @@ public class MyJuryProjects extends AppCompatActivity {
         }
     }
 
+    /**
+     * Allow to view details of a selected project
+     * @param idProjet id of the project
+     * @param posterEmplacement place of the project
+     * @param title title of the project
+     * @param description description of the project
+     * @param confid confidentiality of the project
+     * @param supervisor supervisor of the project
+     * @param students students of the project
+     */
     public void viewDetails(String idProjet, String posterEmplacement, String title, String description, String confid, String supervisor, String students){
         Intent intent = new Intent(MyJuryProjects.this, ProjectDetailsActivity.class);
         intent.putExtra(IDPROJET,idProjet);

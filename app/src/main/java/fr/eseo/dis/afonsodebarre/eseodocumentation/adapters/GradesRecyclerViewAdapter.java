@@ -18,23 +18,37 @@ import java.util.List;
 import fr.eseo.dis.afonsodebarre.eseodocumentation.MyGradesActivity;
 import fr.eseo.dis.afonsodebarre.eseodocumentation.R;
 
+/**
+ * Recycler View of the page which allows to grade projects
+ */
 public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecyclerViewAdapter.GradesRecyclerViewHolder> {
 
     private final MyGradesActivity gradesActivity;
 
+    /**
+     * Elements displayed on the cards
+     */
     private ArrayList<String> projectsTitles;
     private ArrayList<String> projectsStudents;
     private ArrayList<String> projectsMyGrades;
     private ArrayList<String> projectsAverages;
+
+    /**
+     * Variable used to get the student & the project graded
+     */
     private ArrayList<ArrayList<String>> listNames;
     private ArrayList<String> listNamesProject = new ArrayList<>();
     private ArrayList<ArrayList<String>> listIds;
     private ArrayList<String> listIdsProject = new ArrayList<>();
-
     private ArrayList<Integer> idsProjets;
     private Integer idOfTheProject;
+
     private final List<Integer> expandedPositions;
 
+    /**
+     * Constructor of the class
+     * @param gradesActivity activity used
+     */
     public GradesRecyclerViewAdapter(MyGradesActivity gradesActivity) {
         this.gradesActivity = gradesActivity;
 
@@ -48,6 +62,16 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
         expandedPositions = new ArrayList<>();
     }
 
+    /**
+     * void method to get all data about this jury and the grades
+     * @param titles titles of the projects
+     * @param students students of the projects
+     * @param myGrades grade given
+     * @param averages average of the student
+     * @param names students names
+     * @param ids ids of the students
+     * @param idsProjets ids of the projects
+     */
     public void setGrades(ArrayList<String> titles, ArrayList<String> students,
                           ArrayList<String> myGrades, ArrayList<String> averages, ArrayList<ArrayList<String>> names,
                           ArrayList<ArrayList<String>> ids, ArrayList<Integer> idsProjets) {
@@ -62,6 +86,12 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
         notifyDataSetChanged();
     }
 
+    /**
+     * Attach the card of the grades
+     * @param parent VieWGroup
+     * @param viewType int
+     * @return GradesRecyclerViewHolder
+     */
     @NonNull
     @Override
     public GradesRecyclerViewAdapter.GradesRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -70,11 +100,21 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
         return new GradesRecyclerViewAdapter.GradesRecyclerViewHolder(gradesView);
     }
 
+    /**
+     * int getItemCount()
+     * Return the size of the list
+     * @return int
+     */
     @Override
     public int getItemCount() {
         return projectsTitles.size();
     }
 
+    /**
+     * Display the elements
+     * @param holder GradesRecyclerViewHolder
+     * @param position int
+     */
     @Override
     public void onBindViewHolder(@NonNull final GradesRecyclerViewHolder holder, final int position) {
 
@@ -83,6 +123,9 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
         holder.grades.setText(projectsMyGrades.get(position));
         holder.averages.setText(projectsAverages.get(position));
 
+        /*
+          Change the visibility of some elements if the user use a long click on the card
+         */
         if(expandedPositions.contains(position)){
             holder.np1.setVisibility(View.VISIBLE);
             holder.np2.setVisibility(View.VISIBLE);
@@ -98,7 +141,7 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
             @Override
             public boolean onLongClick(View view) {
                 if(holder.np1.getVisibility()==View.VISIBLE){
-                    expandedPositions.remove(new Integer(position));
+                    expandedPositions.remove(Integer.valueOf(position));
                     holder.np1.setVisibility(View.GONE);
                     holder.np2.setVisibility(View.GONE);
                     holder.button.setVisibility(View.GONE);
@@ -108,7 +151,9 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
                     listNamesProject = listNames.get(position);
                     listIdsProject = listIds.get(position);
                     idOfTheProject = idsProjets.get(position);
-
+                    /*
+                     * Update the number picker of the students every time the user use a long click
+                     */
                     holder.Majnp2(listNamesProject.size());
                     holder.np1.setVisibility(View.VISIBLE);
                     holder.np2.setVisibility(View.VISIBLE);
@@ -120,6 +165,9 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
 
     }
 
+    /**
+     * Class of the GradesRecyclerViewHolder
+     */
     class GradesRecyclerViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView projectToGradeTitle;
@@ -130,6 +178,10 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
         private final NumberPicker np2;
         private final Button button;
 
+        /**
+         * Update the number picker of the students of the project who can be graded
+         * @param size int size of students list
+         */
         private void Majnp2 (int size){
             np2.setMaxValue(size);
             String[] valuesNames = new String[listNamesProject.size()];
@@ -147,7 +199,9 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
             grades = itemView.findViewById(R.id.myGrades);
             averages = itemView.findViewById(R.id.averages);
             button = itemView.findViewById(R.id.buttonAddGrade);
-
+            /*
+             * Initialisation of the two number pickers
+             */
             np1 = itemView.findViewById(R.id.numberPickerNote);
             np1.setMinValue(0);
             np1.setMaxValue(20);
@@ -160,6 +214,9 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
 
             final int[] incetu = new int[2];
             incetu[1] = 1;
+            /*
+             * Allow to get the values of the number pickers
+             */
             np1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @SuppressLint("LongLogTag")
                 @Override
@@ -175,7 +232,9 @@ public class GradesRecyclerViewAdapter extends RecyclerView.Adapter<GradesRecycl
                     incetu[1] = newVal;
                 }
             });
-
+            /*
+             * Send data to add a grade when user click on the button
+             */
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
