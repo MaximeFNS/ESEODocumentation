@@ -32,6 +32,7 @@
     <string name="details_description_content">Description content of the project</string>
     <string name="details_return">Return to projects</string>
     <string name="poster_thumb">Thumb version of the selected poster</string>
+    <string name="annotation_button">Annotations of the selected project</string>
 
     <!--card_grades_item-->
     <string name="grades_mine">My note</string>

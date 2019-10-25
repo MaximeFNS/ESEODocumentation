@@ -35,6 +35,7 @@ import static fr.eseo.dis.afonsodebarre.eseodocumentation.TousLesProjetsActivity
 public class MyJuryProjects extends AppCompatActivity {
 
     private String login, token;
+    private boolean isJuryMenu;
     private ArrayList<String> idprojects;
     private final List<String> PROJECTS_TITLE = new ArrayList<>();
     private final List<String> PROJECTS_ID = new ArrayList<>();
@@ -53,6 +54,7 @@ public class MyJuryProjects extends AppCompatActivity {
         login = getIntent().getStringExtra(LOGIN);
         token = getIntent().getStringExtra(TOKEN);
         idprojects = getIntent().getStringArrayListExtra(IDJURYPROJECTS);
+        isJuryMenu = getIntent().getBooleanExtra("ISJURYMENU",true);
 
         /*
         Initialization of the recycler view and we send the data to it
@@ -148,6 +150,7 @@ public class MyJuryProjects extends AppCompatActivity {
         intent.putExtra(STUDENTS,students);
         intent.putExtra(LOGIN, login);
         intent.putExtra(TOKEN,token);
+        intent.putExtra("JURY",isJuryMenu);
         startActivityForResult(intent,CONNECTION);
     }
 }

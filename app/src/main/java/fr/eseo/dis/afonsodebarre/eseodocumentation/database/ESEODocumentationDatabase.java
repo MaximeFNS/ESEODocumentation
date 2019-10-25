@@ -14,7 +14,10 @@ import fr.eseo.dis.afonsodebarre.eseodocumentation.entities.Annotation;
 
 @Database(entities = {Annotation.class}, version = 1, exportSchema = false)
 public abstract class ESEODocumentationDatabase extends RoomDatabase {
-    private static ESEODocumentationDatabase INSTANCE;
+
+
+    //Singleton
+    private static volatile ESEODocumentationDatabase INSTANCE;
 
 
 
@@ -40,12 +43,7 @@ public abstract class ESEODocumentationDatabase extends RoomDatabase {
             public void onCreate(@NonNull SupportSQLiteDatabase db) {
                 super.onCreate(db);
 
-                ContentValues contentValues = new ContentValues();
 
-                contentValues.put("alberpat", "Ce poster est beau mais non conforme");
-
-
-                db.insert("Annotation", OnConflictStrategy.IGNORE, contentValues);
             }
         };
     }

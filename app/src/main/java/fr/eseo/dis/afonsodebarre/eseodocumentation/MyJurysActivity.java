@@ -29,6 +29,7 @@ import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.TOKEN;
 public class MyJurysActivity extends AppCompatActivity {
 
     private String login,  token;
+    private boolean isJuryMenu;
     private JuriesRecyclerViewAdapter juriesRecyclerViewAdapter;
     private static final int CONNECTION = 0;
 
@@ -57,6 +58,7 @@ public class MyJurysActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_jurys);
         login = getIntent().getStringExtra(LOGIN);
         token = getIntent().getStringExtra(TOKEN);
+        isJuryMenu = getIntent().getBooleanExtra("JURYMENU",true);
 
         /*
         Use of a web service which list the juries of the user
@@ -174,6 +176,7 @@ public class MyJurysActivity extends AppCompatActivity {
         intent.putExtra(TOKEN,token);
         intent.putExtra(IDJURYPROJECTS,idProjects);
         intent.putExtra(JURIESTITLES,titles);
+        intent.putExtra("ISJURYMENU",isJuryMenu);
         startActivityForResult(intent,CONNECTION);
     }
 

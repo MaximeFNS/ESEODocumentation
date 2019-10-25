@@ -60,9 +60,19 @@
                 android:id="@+id/map_button"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginStart="16dp"
                 android:text="@string/details_see_plan" />
+
+            <Button
+                android:id="@+id/annotation_button"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginStart="16dp"
+                android:visibility="gone"
+                android:text="Annotations" />
+
 
             <TextView
                 android:id="@+id/details_supervisor"

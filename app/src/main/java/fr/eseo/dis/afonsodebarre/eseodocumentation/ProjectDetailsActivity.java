@@ -34,7 +34,7 @@ public class ProjectDetailsActivity extends AppCompatActivity {
     private String login;
     private String token;
     private String idProjet;
-
+    private boolean isJuryMenu;
     private static final String TAG = "TAG";
     private static final int CONNECTION = 0;
 
@@ -46,6 +46,7 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         login = getIntent().getStringExtra(LOGIN);
         token = getIntent().getStringExtra(TOKEN);
         idProjet = getIntent().getStringExtra(IDPROJET);
+        isJuryMenu = getIntent().getBooleanExtra("JURY",false);
         String confid = getIntent().getStringExtra(CONFID);
         String title = getIntent().getStringExtra(TITLE);
         String description = getIntent().getStringExtra(DESCRPIP);
@@ -75,6 +76,12 @@ public class ProjectDetailsActivity extends AppCompatActivity {
 
         Button map = findViewById(R.id.map_button);
         map.setOnClickListener(onMapButtonClicked);
+
+        if(isJuryMenu){
+            Button annotations = findViewById(R.id.annotation_button);
+            annotations.setVisibility(View.VISIBLE);
+            annotations.setOnClickListener(onAnnotationButtonClicked);
+        }
 
         TextView detailsTitle = findViewById(R.id.details_titre) ;
         TextView detailsEmplacament= findViewById(R.id.details_emplacement) ;
@@ -124,6 +131,17 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         @Override
         public void onClick(final View view) {
             Intent intent = new Intent(ProjectDetailsActivity.this, MapActivity.class);
+            startActivityForResult(intent,CONNECTION);
+
+        }
+    };
+
+    private final View.OnClickListener onAnnotationButtonClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(final View view) {
+            Intent intent = new Intent(ProjectDetailsActivity.this, AnnotationActivity.class);
+            intent.putExtra(LOGIN,login);
+            intent.putExtra("IDPROJECT",idProjet);
             startActivityForResult(intent,CONNECTION);
 
         }

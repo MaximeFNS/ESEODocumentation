@@ -7,12 +7,18 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Annotation")
 public class Annotation {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    public long annotationId;
+
     @NonNull
     @ColumnInfo(name = "userName")
     public String userName;
 
     public String annotation;
+
+
+    @NonNull
+    public String projectId;
 
     public String getUserName(){
         return this.userName;
@@ -29,4 +35,9 @@ public class Annotation {
     public void setAnnotation(String annotation){
         this.annotation=annotation;
     }
+
+    public String getProjectId(){ return this.projectId;}
+
+    public void setProjectId(String projectId) { this.projectId=projectId;}
+
 }

@@ -15,7 +15,7 @@ import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.TOKEN;
 public class MenuJury extends AppCompatActivity {
 
   private static final int CONNECTION = 0;
-
+  private boolean inJuryMenu;
   private String login, token;
 
   @Override
@@ -58,6 +58,9 @@ public class MenuJury extends AppCompatActivity {
     @Override
     public void onClick(final View view) {
       Intent intent = new Intent(MenuJury.this, MyJurysActivity.class);
+      inJuryMenu = true;
+      intent.putExtra("JURYMENU",inJuryMenu);
+
       intent.putExtra(LOGIN, login);
       intent.putExtra(TOKEN, token);
       startActivityForResult(intent,CONNECTION);

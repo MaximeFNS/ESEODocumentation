@@ -12,12 +12,14 @@ import fr.eseo.dis.afonsodebarre.eseodocumentation.entities.Annotation;
 
 @Dao
 public interface AnnotationsDao {
-    @Query("SELECT * FROM Annotation WHERE userName = :userName")
-    List<Annotation> getAnnotations(String userName);
+    @Query("SELECT * FROM Annotation WHERE userName = :userName AND projectId = :projectId")
+    List<Annotation> getAnnotations(String userName, String projectId);
 
-    @Update
-    String updateAnnotation(Annotation annotation);
+    @Update(onConflict=OnConflictStrategy.REPLACE)
+    public void updateAnnotation(Annotation annotation);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    String insertAnnotation(Annotation annotation);
+    public void insertAnnotation(Annotation annotation);
+
+
 }
