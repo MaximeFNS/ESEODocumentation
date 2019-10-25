@@ -23,11 +23,17 @@ import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.LOGIN;
 
 import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.TOKEN;
 
-
-
-
+/**
+ * TousLesProjetsActivity is the activity that displays all the projects
+ */
 public class TousLesProjetsActivity extends AppCompatActivity {
 
+    private String login, token;
+    private static final int CONNECTION = 0;
+
+    /**
+     * Elements displayed
+     */
     private final List<String> PROJECTS_TITLE = new ArrayList<>();
     private final List<String> PROJECTS_ID = new ArrayList<>();
     private final List<String> PROJECTS_CONFID = new ArrayList<>();
@@ -35,7 +41,7 @@ public class TousLesProjetsActivity extends AppCompatActivity {
     private final List<String> PROJECTS_SUPERVISOR= new ArrayList<>();
     private final List<String> PROJECTS_POSTER= new ArrayList<>();
     private final List<String> PROJECTS_STUDENTS = new ArrayList<>();
-    private static final int CONNECTION = 0;
+
     public static final String IDPROJET = "IDPROJET";
     public static final String EMP = "EMP";
     public static final String DESCRPIP = "DESCRIP";
@@ -43,7 +49,6 @@ public class TousLesProjetsActivity extends AppCompatActivity {
     public static final String SUPERVISOR = "SUPERVISOR";
     public static final String STUDENTS = "STUDENTS";
     public static final String TITLE = "TITLE";
-    private String login, token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,9 @@ public class TousLesProjetsActivity extends AppCompatActivity {
         login = getIntent().getStringExtra(LOGIN);
         token = getIntent().getStringExtra(TOKEN);
 
+        /*
+        Initialization of the recycler view and we send the data to it
+         */
         RecyclerView projectsRecycler = findViewById(R.id.projectsList);
         projectsRecycler.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -64,8 +72,14 @@ public class TousLesProjetsActivity extends AppCompatActivity {
         projectsRecyclerViewAdapter.setProjects(PROJECTS_TITLE,PROJECTS_DESCRIPTION,PROJECTS_CONFID,PROJECTS_ID,PROJECTS_POSTER,PROJECTS_STUDENTS,PROJECTS_SUPERVISOR);
     }
 
+    /**
+     * void ImportProjects allows to get all projects
+     */
     private void importProjects() {
 
+        /*
+        use of a web service to get data of all projects
+         */
         WebServiceConnectivity wsc = new WebServiceConnectivity(this);
         wsc.execute("https://192.168.4.240/pfe/webservice.php?q=LIPRJ&user=" + login + "&token=" + token);
 
@@ -74,6 +88,9 @@ public class TousLesProjetsActivity extends AppCompatActivity {
             JSONObject jObject = new JSONObject(result);
             String resultString = jObject.getString("result");
 
+            /*
+            If result is ok data are assigned to the variables
+             */
             if (resultString.equals("OK")) {
 
                 for (int i = 0; i < jObject.getJSONArray("projects").length(); i++){
@@ -115,6 +132,9 @@ public class TousLesProjetsActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    Allow user to see details of the selected project
+     */
     public void viewDetails(String idProjet, String posterEmplacement, String title, String description, String confid, String supervisor, String students){
         Intent intent = new Intent(TousLesProjetsActivity.this, ProjectDetailsActivity.class);
         intent.putExtra(IDPROJET,idProjet);

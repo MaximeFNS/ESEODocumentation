@@ -22,19 +22,32 @@ import fr.eseo.dis.afonsodebarre.eseodocumentation.adapters.JuriesRecyclerViewAd
 import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.LOGIN;
 
 import static fr.eseo.dis.afonsodebarre.eseodocumentation.MainActivity.TOKEN;
+
+/**
+ * MyJurysActivity is the activity which manage the jury of the user
+ */
 public class MyJurysActivity extends AppCompatActivity {
 
     private String login,  token;
     private JuriesRecyclerViewAdapter juriesRecyclerViewAdapter;
+    private static final int CONNECTION = 0;
+
+    /**
+     * Elements displayed
+     */
     private final ArrayList<String> JURIES_ID = new ArrayList<>();
     private final ArrayList<String> JURIES_DATES = new ArrayList<>();
     private final ArrayList<String> JURIES_MEMBERS = new ArrayList<>();
     private final ArrayList<String> JURIES_PROJECTS = new ArrayList<>();
+
+    /**
+     * Variables used to determine later what project have been selected
+     */
     private ArrayList<String> TEMPORARY = new ArrayList<>();
     private ArrayList<String> TEMPORARYTITLES = new ArrayList<>();
     private final ArrayList<ArrayList<String>> LISTOFLISTIDS = new ArrayList<>();
     private final ArrayList<ArrayList<String>> LISTOFLISTTITLES = new ArrayList<>();
-    private static final int CONNECTION = 0;
+
     public static final String IDJURYPROJECTS = "IDJURYPROJECTS";
     public static final String JURIESTITLES = "JURIESTITLES";
 
@@ -45,6 +58,9 @@ public class MyJurysActivity extends AppCompatActivity {
         login = getIntent().getStringExtra(LOGIN);
         token = getIntent().getStringExtra(TOKEN);
 
+        /*
+        Use of a web service which list the juries of the user
+         */
         WebServiceConnectivity wsc = new WebServiceConnectivity(this);
         wsc.execute("https://192.168.4.240/pfe/webservice.php?q=MYJUR&user="+login+"&token="+token);
 
@@ -52,9 +68,12 @@ public class MyJurysActivity extends AppCompatActivity {
             String result = wsc.get();
             JSONObject jObject = new JSONObject(result);
             String resultString = jObject.getString("result");
-            Log.d("ResultString ",resultString);
+
+            /*
+            If result of the web service is data get values of the juries
+             */
             if (resultString.equals("OK")) {
-                Log.d("NbJurys",Integer.toString(jObject.getJSONArray("juries").length()));
+
                 int sizeJury = jObject.getJSONArray("juries").length();
                 JSONArray arrayJuries = jObject.getJSONArray("juries");
                 for (int i = 0; i < sizeJury; i++){
@@ -93,6 +112,10 @@ public class MyJurysActivity extends AppCompatActivity {
                         TEMPORARYTITLES.add(projectObject.getString("title"));
                     }
 
+                    /*
+                    TEMPORARYTITLES contains list of titles by project
+                    LISTOFLISTIDS contains list of ids by project
+                     */
                     LISTOFLISTIDS.add(TEMPORARY);
                     LISTOFLISTTITLES.add(TEMPORARYTITLES);
                     TEMPORARY = new ArrayList<>();
@@ -105,6 +128,10 @@ public class MyJurysActivity extends AppCompatActivity {
         } catch (ExecutionException | InterruptedException | JSONException e) {
             e.printStackTrace();
         }
+
+        /*
+        Initialization of the recycler view and we send the data to it
+         */
         RecyclerView juriesRecycler = findViewById(R.id.juriesList);
         juriesRecycler.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -115,12 +142,19 @@ public class MyJurysActivity extends AppCompatActivity {
         setMJJuries();
     }
 
+    /**
+     * void setMKJuries send the data to the recycler view
+     */
     private void setMJJuries(){
 
         juriesRecyclerViewAdapter.setJuries(JURIES_ID,JURIES_DATES, JURIES_MEMBERS, JURIES_PROJECTS, LISTOFLISTTITLES,LISTOFLISTIDS);
 
             }
 
+    /**
+     * void viewProjects() direct the user to MyJuryProjects.class
+      * @param idProjects Ids of the project assigned to the selected jury
+     */
     public void viewProjects(ArrayList<String> idProjects){
         Intent intent = new Intent(MyJurysActivity.this, MyJuryProjects.class);
         intent.putExtra(LOGIN, login);
@@ -129,6 +163,11 @@ public class MyJurysActivity extends AppCompatActivity {
         startActivityForResult(intent,CONNECTION);
     }
 
+    /**
+     * void gradeProjects() direct the user to MyGradesActivity.class
+     * @param idProjects Ids of the project assigned to the selected jury
+     * @param titles Titles of the project assigned to the selected jury
+     */
     public void gradeProjects(ArrayList<String> idProjects, ArrayList<String> titles){
         Intent intent = new Intent(MyJurysActivity.this, MyGradesActivity.class);
         intent.putExtra(LOGIN, login);

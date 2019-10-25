@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +17,9 @@ import fr.eseo.dis.afonsodebarre.eseodocumentation.MyJuryProjects;
 import fr.eseo.dis.afonsodebarre.eseodocumentation.R;
 import fr.eseo.dis.afonsodebarre.eseodocumentation.TousLesProjetsActivity;
 
-import static android.content.ContentValues.TAG;
-
+/**
+ * Recycler View of the page which allows to see projects
+ */
 public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsRecyclerViewAdapter.ProjectsRecyclerViewHolder> {
 
     private TousLesProjetsActivity projetsActivity;
@@ -26,6 +27,9 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
 
     private final List<Integer> expandedPositions;
 
+    /**
+     * Elements displayed on the cards
+     */
     private List<String> projects_title;
     private List<String> projects_id;
     private List<String> projects_confid;
@@ -33,10 +37,16 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
     private List<String> projects_poster_emplacement;
     private List<String> projects_students;
     private List<String> projects_supervisor;
+    /**
+     * Boolean to determined if the user wants to see all projects or only projects of his jury
+     */
     private boolean inAllProjects = false;
     private boolean inMyJuryProjects = false;
 
-
+    /**
+     * Constructor of the class if the user wants to see all projects
+     * @param projetsActivity Activity used
+     */
     public ProjectsRecyclerViewAdapter(TousLesProjetsActivity projetsActivity) {
         this.projetsActivity = projetsActivity;
 
@@ -51,9 +61,10 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
         expandedPositions = new ArrayList<>();
     }
 
-
-
-
+    /**
+     * Constructor of the class if the user wants to see projects of his jury
+     * @param myJuryProjects activity used
+     */
    public ProjectsRecyclerViewAdapter(MyJuryProjects myJuryProjects) {
         this.myJuryProjects = myJuryProjects;
 
@@ -68,6 +79,16 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
         expandedPositions = new ArrayList<>();
     }
 
+    /**
+     *
+     * @param projects_title Title of the project
+     * @param projects_description Description of the project
+     * @param projects_confid Confidentiality of the project
+     * @param projects_id Id of the project
+     * @param projects_poster_emplacement Place of the project
+     * @param projects_students Students of the project
+     * @param projects_supervisor Supervisor of the project
+     */
     public void setProjects(List<String> projects_title, List<String> projects_description, List<String> projects_confid, List<String> projects_id, List<String> projects_poster_emplacement, List<String> projects_students, List<String> projects_supervisor) {
         this.projects_title= projects_title;
         this.projects_description= projects_description;
@@ -79,8 +100,12 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
         notifyDataSetChanged();
     }
 
-
-
+    /**
+     *
+     * @param parent ViewGroup
+     * @param viewType int
+     * @return ProjectsRecyclerViewHolder
+     */
     @NonNull
     @Override
     public ProjectsRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -89,6 +114,11 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
         return new ProjectsRecyclerViewHolder(projectView);
     }
 
+    /**
+     *
+     * @param holder ProjectsRecyclerViewHolder
+     * @param position int
+     */
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final ProjectsRecyclerViewHolder holder, final int position) {
@@ -97,6 +127,9 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
         holder.projectConfidentiality.setText("confid : "+projects_confid.get(position));
         holder.projectTitle.setText(projects_title.get(position));
 
+        /*
+          Change the visibility of some elements if the user use a long click on the card
+         */
         if(expandedPositions.contains(position)){
             holder.projectResume.setVisibility(View.VISIBLE);
             holder.projectDescriptionLabel.setVisibility(View.VISIBLE);
@@ -121,6 +154,9 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
                 return true;
             }
         });
+        /*
+          User can see the details of the selected project on the clicked card
+         */
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             final String id = projects_id.get(position);
             final String title = projects_title.get(position);
@@ -131,7 +167,7 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
             final String emplacementPoster = projects_poster_emplacement.get(position);
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "IDProjet : " + id);
+
                 if(inAllProjects){
                     projetsActivity.viewDetails(id,emplacementPoster,title,description,confid,supervisor,students);
                 }
@@ -143,12 +179,18 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
         });
     }
 
+    /**
+     *
+     * @return int
+     */
     @Override
     public int getItemCount() {
         return projects_id.size();
     }
 
-
+    /**
+     * Class of the ProjectsRecyclerViewHolder
+     */
     class ProjectsRecyclerViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView projectTitle;
@@ -158,8 +200,11 @@ public class ProjectsRecyclerViewAdapter  extends RecyclerView.Adapter<ProjectsR
 
         private ProjectsRecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
-            projectTitle = itemView.findViewById(R.id.project_titre);
 
+            /**
+             * Add elements of the layout
+             */
+            projectTitle = itemView.findViewById(R.id.project_titre);
             projectConfidentiality = itemView.findViewById(R.id.project_confidentiality);
             projectResume = itemView.findViewById(R.id.project_resume);
             projectDescriptionLabel = itemView.findViewById(R.id.project_description);
